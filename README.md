@@ -7,11 +7,11 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - PRD:
 
 # Anggota Dan Kontribusi 
+- Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
 - Muhammad Alfian Febrianto []
 - Silas Torem Bernifu []
 - Suci Ramadhani []
 - Widia Andani Rifaat []
-- Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
 
 
 # Status Halaman
