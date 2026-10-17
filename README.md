@@ -76,7 +76,7 @@ Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasa
 
 
 
-**#Log Prompt AI**
+# Log Prompt AI
 Detail lengkap ada di docs/log-prompt.md.
 
 # Prompt 1: Struktur proyek, design token, Navbar, Beranda
