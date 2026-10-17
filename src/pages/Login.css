@@ -1,0 +1,320 @@
+/* ================================================================== */
+/* Login Page Styles                                                    */
+/* ================================================================== */
+
+/* Layout dua kolom penuh layar */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------------ */
+/* Kolom kiri: panel hijau muda                                        */
+/* ------------------------------------------------------------------ */
+.login__panel {
+  flex: 0 0 42%;
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 56px;
+}
+
+.login__panel-content {
+  max-width: 340px;
+}
+
+/* Logo kotak hijau tua dengan huruf S */
+.login__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--green);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.375rem;
+  font-weight: 800;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+}
+
+.login__tagline {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.login__desc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Kolom kanan: area form                                              */
+/* ------------------------------------------------------------------ */
+.login__main {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 56px;
+}
+
+.login__card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login__title {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.login__subtitle {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tab pilihan jenis pengguna                                          */
+/* ------------------------------------------------------------------ */
+.login__tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.login__tab {
+  flex: 1;
+  height: 40px;
+  padding: 0 12px;
+  border: none;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  position: relative;
+}
+
+.login__tab:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.login__tab--active {
+  background: var(--panel);
+  color: var(--green);
+  border-color: var(--green) !important;
+  outline: 1px solid var(--green);
+  outline-offset: -1px;
+  border-radius: 7px;
+  z-index: 1;
+}
+
+.login__tab:not(.login__tab--active):hover {
+  background: #f8faf9;
+}
+
+/* ------------------------------------------------------------------ */
+/* Form                                                                */
+/* ------------------------------------------------------------------ */
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Banner error */
+.login__banner-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fdeaea;
+  border: 1px solid #f5c5c5;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  color: #b91c1c;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.login__banner-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #d94343;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  margin-top: 1px;
+}
+
+/* Tombol aksi */
+.login__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tampilan sukses                                                     */
+/* ------------------------------------------------------------------ */
+.login__sukses {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 0 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.login__sukses-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.login__sukses-judul {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.login__sukses-teks {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.login__sukses-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+}
+
+.login__sukses-ulang {
+  margin-top: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Info petugas                                                        */
+/* ------------------------------------------------------------------ */
+.login__petugas-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.login__petugas-icon {
+  font-size: 1.75rem;
+}
+
+.login__petugas-teks {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ================================================================== */
+/* Responsivitas                                                        */
+/* ================================================================== */
+
+/* Tablet: 640px – 899px — tetap dua kolom tapi lebih rapat */
+@media (min-width: 640px) and (max-width: 899px) {
+  .login__panel {
+    flex: 0 0 38%;
+    padding: 48px 32px;
+  }
+
+  .login__main {
+    padding: 48px 32px;
+  }
+
+  .login__tagline {
+    font-size: 1.375rem;
+  }
+}
+
+/* Mobile: di bawah 640px — satu kolom, panel di atas */
+@media (max-width: 639px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login__panel {
+    flex: none;
+    padding: 40px 24px 36px;
+    justify-content: flex-start;
+  }
+
+  .login__panel-content {
+    max-width: 100%;
+  }
+
+  .login__logo {
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+  }
+
+  .login__tagline {
+    font-size: 1.375rem;
+  }
+
+  .login__main {
+    flex: none;
+    padding: 36px 24px 48px;
+    align-items: flex-start;
+  }
+
+  .login__card {
+    max-width: 100%;
+  }
+
+  .login__title {
+    font-size: 1.375rem;
+  }
+}

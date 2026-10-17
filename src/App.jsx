@@ -1,8 +1,9 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar.jsx'
 import Beranda from './pages/Beranda.jsx'
+import Login from './pages/Login.jsx'
 
-// Halaman lain ditambahkan per tahap (Login, Katalog, Detail, Form, Sukses).
+// Halaman lain ditambahkan per tahap (Katalog, Detail, Form, Sukses).
 function Segera({ judul }) {
   return (
     <main className="container page-pad">
@@ -12,13 +13,19 @@ function Segera({ judul }) {
   )
 }
 
+// Rute yang tidak menampilkan Navbar
+const RUTE_TANPA_NAVBAR = ['/masuk']
+
 export default function App() {
+  const { pathname } = useLocation()
+  const tampilkanNavbar = !RUTE_TANPA_NAVBAR.includes(pathname)
+
   return (
     <>
-      <Navbar />
+      {tampilkanNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Beranda />} />
-        <Route path="/masuk" element={<Segera judul="Masuk" />} />
+        <Route path="/masuk" element={<Login />} />
         <Route path="/layanan" element={<Segera judul="Layanan" />} />
         <Route path="/tentang" element={<Segera judul="Tentang" />} />
       </Routes>
