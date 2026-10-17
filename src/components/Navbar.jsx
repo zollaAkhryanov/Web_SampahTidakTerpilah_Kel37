@@ -17,7 +17,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar__inner">
         <Link to="/" className="navbar__brand" onClick={tutup}>
-          <span className="navbar__logo">S</span>SampahTidakTerpilah
+          <span className="navbar__logo">S</span>SampahPintar
         </Link>
 
         <button
