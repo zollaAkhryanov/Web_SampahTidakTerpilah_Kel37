@@ -1,0 +1,36 @@
+.beranda { background: var(--page); min-height: calc(100vh - 65px); padding: 24px 0 64px; }
+
+.hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; margin-bottom: 36px; }
+.hero__title { font-size: 2.125rem; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em; margin: 0 0 16px; max-width: 480px; }
+.hero__desc { max-width: 420px; margin: 0 0 20px; font-size: 0.75rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__photo {
+  min-height: 220px; background: var(--panel); border: 1px solid #d3e6dc; border-radius: var(--radius-lg);
+  display: grid; place-items: center; font-size: 0.75rem; font-weight: 600; color: var(--green);
+}
+
+.cari .h2 { font-size: 1rem; }
+.cari__form { display: flex; gap: 12px; margin-bottom: 20px; }
+.cari__input { flex: 1; min-width: 0; height: 40px; }
+
+.langkah { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.langkah__card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px; }
+.langkah__no {
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 6px;
+  background: var(--panel); color: var(--green); font-size: 0.75rem; font-weight: 700; margin-bottom: 12px;
+}
+.langkah__judul { font-size: 0.8125rem; font-weight: 700; margin: 0 0 6px; }
+.langkah__teks { font-size: 0.6875rem; margin: 0; }
+
+@media (max-width: 899px) {
+  .hero { grid-template-columns: 1fr; gap: 24px; }
+  .hero__title { max-width: none; font-size: 1.875rem; }
+  .hero__photo { order: -1; min-height: 180px; }
+}
+@media (max-width: 639px) {
+  .beranda { padding-top: 16px; }
+  .hero__title { font-size: 1.625rem; }
+  .hero__actions .btn { flex: 1 1 100%; }
+  .cari__form { flex-direction: column; }
+  .langkah { grid-template-columns: 1fr; }
+}
