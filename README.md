@@ -10,7 +10,7 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
 - Muhammad Alfian Febrianto []
 - Silas Torem Bernifu []
-- Suci Ramadhani [Implementasi halaman Login, form pengguna umum, pilihan jenis pengguna, validasi input, dan desain responsif] Done
+- Suci Ramadhani [Implementasi halaman Detail dan Jadwal, informasi bank sampah, pilihan metode layanan, tanggal, waktu, dan desain responsif] Done
 - Widia Andani Rifaat []
 
 # Status Halaman
