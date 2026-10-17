@@ -65,14 +65,43 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 Detail lengkap ada di docs/log-prompt.md.
 
 # Prompt 1: Struktur proyek, design token, Navbar, Beranda
-- Tool: [isi] | Dikerjakan: Zolla Akhryanov
+- Tool: Cloude | Dikerjakan: Zolla Akhryanov
+- Prompt: Kamu adalah front-end developer. Ubah desain Figma terlampir menjadi
+website "SampahPintar": aplikasi web untuk menyetor atau meminta jemput
+sampah ke bank sampah di Surabaya.
+
+TEKNOLOGI
+- Vite + React, react-router-dom, CSS biasa (tanpa backend)
+- Data bank sampah disimpan sebagai array statis di src/data/bankSampah.js
+- Kode rapi, komponen dipisah per file
+
+DESIGN TOKEN (ikuti desain, jangan diubah)
+- Warna utama: hijau tua #0F6B45
+- Latar panel: hijau sangat muda #E8F3EE, latar halaman abu-hijau terang
+- Kartu: putih, border tipis, sudut membulat
+- Font: Inter, judul tebal
+- Chip status: hijau muda (aktif), kuning (Menunggu diproses)
+- Input error: border dan latar merah muda
+- Button: solid hijau dan outline hijau
+
+KOMPONEN GLOBAL
+Navbar (logo S + "SampahPintar", menu Beranda/Layanan/Tentang, tombol Masuk),
+Button, Chip, Input, Stepper, Accordion
+
+ATURAN
+- Tampilan harus semirip mungkin dengan desain (tata letak, proporsi, spasi)
+- Wajib responsif: mobile (<640px), tablet, desktop
+- Di mobile, navbar menjadi menu hamburger yang bisa dibuka-tutup
+- Jangan menambah fitur di luar desain
+
+Kerjakan per halaman. Mulai dengan struktur proyek + Navbar + Beranda.
 - Input: PDF desain Modul 5
 - Hasil AI: proyek Vite + React berjalan, komponen dasar dan Beranda terbentuk
 
-# Prompt 2 dst.
+
+
+# Prompt 2 dst
 [isi setiap selesai satu halaman]
-
-
 
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya |
 
