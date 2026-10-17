@@ -5,6 +5,7 @@ import Beranda from './pages/Beranda.jsx'
 import Login from './pages/Login.jsx'
 import Layanan from './pages/Layanan.jsx'
 import Detail from './pages/Detail.jsx'
+import Ajukan from './pages/Ajukan.jsx'
 
 // Halaman lain ditambahkan per tahap (Detail, Form, Sukses).
 function Segera({ judul }) {
@@ -31,7 +32,9 @@ function AppShell() {
         <Route path="/masuk" element={<Login />} />
         <Route path="/layanan" element={<Layanan />} />
         <Route path="/layanan/:id" element={<Detail />} />
+        <Route path="/ajukan/:id" element={<Ajukan />} />
         <Route path="/tentang" element={<Segera judul="Tentang" />} />
+        <Route path="*" element={<Beranda />} />
       </Routes>
     </>
   )
