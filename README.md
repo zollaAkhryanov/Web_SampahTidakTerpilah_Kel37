@@ -13,7 +13,6 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - Suci Ramadhani []
 - Widia Andani Rifaat []
 
-
 # Status Halaman
 | Halaman | Rute | Status |
 |---|---|---|
@@ -69,7 +68,6 @@ Detail lengkap ada di docs/log-prompt.md.
 - Tool: [isi] | Dikerjakan: Zolla Akhryanov
 - Input: PDF desain Modul 5
 - Hasil AI: proyek Vite + React berjalan, komponen dasar dan Beranda terbentuk
-- Perbaikan manual: lihat tabel di bawah
 
 # Prompt 2 dst.
 [isi setiap selesai satu halaman]
