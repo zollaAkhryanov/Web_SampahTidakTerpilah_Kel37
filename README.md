@@ -61,10 +61,9 @@ Zolla Akhryanov [Inisialisasi proyek, design token, Navbar + hamburger, Beranda,
     └── styles/
         └── global.css          (design token dan gaya komponen)
 
-# Design Token (dari src/styles/global.css)
+## Design Token (dari src/styles/global.css)
 
 | Token | Nilai |
-|---|---|
 | Hijau utama | #0f6b45 (hover #0b5636) |
 | Panel hijau muda | #e8f3ee |
 | Latar halaman | #f4f7f5 |
@@ -73,8 +72,9 @@ Zolla Akhryanov [Inisialisasi proyek, design token, Navbar + hamburger, Beranda,
 | Error | latar #fdeaea, border #d94343 |
 | Radius | 10px (kartu besar 14px) |
 | Font | Inter |
+| Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya |
 
-## Log Prompt AI
+**Log Prompt AI**
 Detail lengkap ada di docs/log-prompt.md.
 
 # Prompt 1: Struktur proyek, design token, Navbar, Beranda
