@@ -18,8 +18,8 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 |---|---|---|
 | Beranda | / | Selesai (pencarian mengarah ke /layanan?q=...) |
 | Login | /masuk | Selesai |
-| Katalog & Filter | /layanan | Belum (placeholder) |
-| Detail & Jadwal | - | Belum |
+| Katalog & Filter | /layanan | Selesai) |
+| Detail & Jadwal | - | Selesai |
 | Form Langkah 1, 2, Konfirmasi | - | Belum |
 | Sukses & Tiket | - | Belum |
 | Tentang | /tentang | Belum (placeholder) |
@@ -34,6 +34,10 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - Pesan error pada field yang belum valid.
 - Tombol Masuk dan Lanjut tanpa masuk.
 - Layout Login responsif untuk mobile, tablet, dan desktop.
+- Detail Bank Sampah: Menampilkan nama bank sampah, deskripsi, foto atau logo, lokasi, dan kategori sampah yang diterima.
+- Jadwal Layanan: Menyediakan pilihan metode layanan berupa penyerahan langsung dan penjemputan, pilihan tanggal, serta pilihan waktu.
+- Informasi Layanan: Menampilkan ketentuan penimbangan sampah sebelum layanan dilanjutkan.
+- Navigasi Layanan: Menyediakan tombol Lanjutkan untuk meneruskan proses layanan.
 
 # Cara Menjalankan Lokal
 1. Pasang Node.js (versi 18 ke atas)
@@ -62,7 +66,9 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
     │   └── bankSampah.js
     ├── pages/
     │   └── Beranda.jsx / Beranda.css
-    │   └── Login.jsx / Login.css 
+    │   └── Login.jsx / Login.css
+    │   └── Layanan.jsx / Layanan.css
+    │   └── Detail.jsx / Detail.css 
     └── styles/
         └── global.css          (design token dan gaya komponen)
 
@@ -142,7 +148,47 @@ pengguna umum, pilihan tipe pengguna, validasi data, serta penyesuaian tampilan
 responsif sesuai implementasi yang dihasilkan.
 
 
-# Prompt 3 dst
+# Prompt 3: Implementasi Halaman Detail dan Jadwal SampahPintar
+
+- Tool: Antigravity | Dikerjakan: Suci Ramadhani
+- Prompt: Lanjutkan pengembangan website SampahPintar berdasarkan struktur proyek React yang sudah tersedia. Implementasikan halaman Detail dan Jadwal layanan bank sampah dengan mengacu pada screenshot desain yang diberikan.
+
+TEKNOLOGI
+- Menggunakan React, Vite, react-router-dom, dan CSS biasa.
+- Memanfaatkan struktur folder dan komponen yang sudah tersedia.
+- Tidak menggunakan backend untuk implementasi ini.
+
+KOMPONEN HALAMAN DETAIL
+- Menampilkan informasi bank sampah yang dipilih, seperti nama, deskripsi, lokasi, dan kategori sampah yang diterima.
+- Menampilkan foto atau logo bank sampah.
+- Menyediakan tampilan informasi lokasi bank sampah secara jelas.
+- Menyesuaikan tata letak informasi dengan desain referensi.
+
+KOMPONEN HALAMAN JADWAL
+- Menyediakan pilihan metode layanan, yaitu Penyerahan Langsung dan Penjemputan.
+- Menampilkan pilihan tanggal layanan.
+- Menyediakan pilihan waktu layanan yang tersedia.
+- Menampilkan informasi mengenai ketentuan penimbangan sampah.
+- Menyediakan tombol Lanjutkan untuk meneruskan proses pemesanan layanan.
+
+DESAIN DAN RESPONSIVITAS
+- Mengikuti referensi desain yang diberikan.
+- Menggunakan palet warna hijau SampahPintar dan gaya komponen yang sudah tersedia.
+- Menjaga konsistensi tipografi, jarak antar elemen, border, dan tombol.
+- Memastikan halaman dapat digunakan pada perangkat mobile, tablet, maupun desktop.
+
+KETENTUAN PENGERJAAN
+- Mengintegrasikan halaman dengan routing proyek yang sudah tersedia.
+- Memastikan pilihan metode, tanggal, dan waktu dapat digunakan pada antarmuka.
+- Mempertahankan fungsi halaman lain yang sudah selesai.
+- Menggunakan kembali komponen yang relevan jika memungkinkan.
+- Tidak mengklaim proses pemesanan tersimpan ke server karena implementasi belum menggunakan backend.
+
+- Input: Screenshot referensi halaman Detail dan Jadwal layanan SampahPintar.
+- Hasil AI: Implementasi antarmuka Detail dan Jadwal layanan bank sampah yang mengikuti desain referensi, dengan informasi bank sampah, pilihan metode layanan, tanggal, waktu, ketentuan penimbangan, dan tombol Lanjutkan.
+
+
+# Prompt 4 dst
 [isi setiap selesai satu halaman]
 
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya 
