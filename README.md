@@ -112,7 +112,7 @@ Kerjakan per halaman. Mulai dengan struktur proyek + Navbar + Beranda.
 
 
 # Prompt 2: Implementasi Halaman Login SampahPintar
-- Tool: Antigravity | Dikerjakan: Suci Ramadhani
+- Tool: Claude | Dikerjakan: Suci Ramadhani
 - Prompt: Bertindak sebagai frontend developer dan lanjutkan pengembangan website
 SampahPintar dari proyek React yang sudah tersedia. Buat halaman Login dengan
 mengacu pada screenshot desain yang diberikan agar tampilannya konsisten
@@ -150,7 +150,7 @@ responsif sesuai implementasi yang dihasilkan.
 
 # Prompt 3: Implementasi Halaman Detail dan Jadwal SampahPintar
 
-- Tool: Antigravity | Dikerjakan: Suci Ramadhani
+- Tool: Claude | Dikerjakan: Suci Ramadhani
 - Prompt: Lanjutkan pengembangan website SampahPintar berdasarkan struktur proyek React yang sudah tersedia. Implementasikan halaman Detail dan Jadwal layanan bank sampah dengan mengacu pada screenshot desain yang diberikan.
 
 TEKNOLOGI
