@@ -3,7 +3,7 @@ Aplikasi web untuk membantu masyarakat menyetor sampah
 langsung atau meminta penjemputan ke bank sampah terdekat.
 # Tautan
 - Desain figma (modul 5): https://www.figma.com/design/PjhLrvM6CJcfWMplKa4kl8/Modul-5-Web-UIUX---Prototipe?node-id=0-1&p=f&t=YB8i603p5G3pp690-0
-- Repository:
+- Repository:https://github.com/zollaAkhryanov/Web_SampahTidakTerpilah_Kel37.git
 - PRD:
 
 # Anggota Dan Kontribusi 
