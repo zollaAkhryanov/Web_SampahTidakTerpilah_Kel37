@@ -10,14 +10,14 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
 - Muhammad Alfian Febrianto []
 - Silas Torem Bernifu []
-- Suci Ramadhani []
+- Suci Ramadhani [Implementasi halaman Login, form pengguna umum, pilihan jenis pengguna, validasi input, dan desain responsif] Done
 - Widia Andani Rifaat []
 
 # Status Halaman
 | Halaman | Rute | Status |
 |---|---|---|
 | Beranda | / | Selesai (pencarian mengarah ke /layanan?q=...) |
-| Login | /masuk | Belum (placeholder) |
+| Login | /masuk | Selesai |
 | Katalog & Filter | /layanan | Belum (placeholder) |
 | Detail & Jadwal | - | Belum |
 | Form Langkah 1, 2, Konfirmasi | - | Belum |
@@ -29,6 +29,11 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - Beranda dengan kolom pencarian yang membawa kata kunci ke halaman layanan
 - Komponen reusable: Button, Chip, Input, Stepper, Accordion (accordion sudah punya state buka-tutup)
 - Data statis 4 bank sampah di src/data/bankSampah.js
+- Halaman Login dengan form Pengguna Umum dan pilihan jenis pengguna.
+- Validasi nama lengkap, nomor WhatsApp, dan alamat.
+- Pesan error pada field yang belum valid.
+- Tombol Masuk dan Lanjut tanpa masuk.
+- Layout Login responsif untuk mobile, tablet, dan desktop.
 
 # Cara Menjalankan Lokal
 1. Pasang Node.js (versi 18 ke atas)
@@ -57,6 +62,7 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
     │   └── bankSampah.js
     ├── pages/
     │   └── Beranda.jsx / Beranda.css
+    │   └── Login.jsx / Login.css 
     └── styles/
         └── global.css          (design token dan gaya komponen)
 
@@ -99,9 +105,44 @@ Kerjakan per halaman. Mulai dengan struktur proyek + Navbar + Beranda.
 - Hasil AI: proyek Vite + React berjalan, komponen dasar dan Beranda terbentuk
 
 
+# Prompt 2: Implementasi Halaman Login SampahPintar
+- Tool: Antigravity | Dikerjakan: Suci Ramadhani
+- Prompt: Bertindak sebagai frontend developer dan lanjutkan pengembangan website
+SampahPintar dari proyek React yang sudah tersedia. Buat halaman Login dengan
+mengacu pada screenshot desain yang diberikan agar tampilannya konsisten
+dengan halaman lainnya.
 
-# Prompt 2 dst
+TEKNOLOGI
+- Menggunakan React, Vite, react-router-dom, dan CSS biasa
+- Memanfaatkan struktur folder serta komponen yang telah dibuat sebelumnya
+- Tidak menggunakan backend untuk implementasi ini
+
+KOMPONEN HALAMAN LOGIN
+- Pilihan tipe pengguna antara Pengguna Umum dan Petugas
+- Form Pengguna Umum yang berisi nama lengkap, nomor WhatsApp, dan alamat
+- Validasi untuk memastikan data yang dimasukkan sesuai ketentuan
+- Notifikasi kesalahan apabila terdapat data yang kosong atau tidak valid
+- Tombol Masuk dan Lanjut tanpa masuk
+
+DESAIN DAN RESPONSIVITAS
+- Menyesuaikan layout dengan referensi desain Login
+- Menggunakan palet warna hijau SampahPintar dan gaya komponen yang sudah tersedia
+- Menjaga konsistensi ukuran teks, jarak antarelemen, border, dan bentuk tombol
+- Memastikan halaman dapat digunakan pada perangkat mobile, tablet, maupun desktop
+
+KETENTUAN PENGERJAAN
+- Menambahkan halaman Login pada rute /masuk
+- Mempertahankan fungsi halaman lain yang sudah selesai
+- Menggunakan kembali komponen yang relevan jika memungkinkan
+- Memastikan form dan tombol dapat diuji tanpa memerlukan backend
+
+- Input: Screenshot referensi halaman Login
+- Hasil AI: Halaman Login diintegrasikan ke dalam proyek SampahPintar dengan form
+pengguna umum, pilihan tipe pengguna, validasi data, serta penyesuaian tampilan
+responsif sesuai implementasi yang dihasilkan.
+
+
+# Prompt 3 dst
 [isi setiap selesai satu halaman]
 
-| Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya |
-
+| Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya 
