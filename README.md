@@ -11,7 +11,7 @@ Muhammad Alfian Febrianto []
 Silas Torem Bernifu []
 Suci Ramadhani []
 Widia Andani Rifaat []
-Zolla Akhryanov [Inisialisasi proyek, design token, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
+Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
 
 
 # Status Halaman
@@ -74,7 +74,9 @@ Zolla Akhryanov [Inisialisasi proyek, design token, Navbar + hamburger, Beranda,
 | Font | Inter |
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya |
 
-**Log Prompt AI**
+
+
+**#Log Prompt AI**
 Detail lengkap ada di docs/log-prompt.md.
 
 # Prompt 1: Struktur proyek, design token, Navbar, Beranda
@@ -89,4 +91,4 @@ Detail lengkap ada di docs/log-prompt.md.
 
 
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya |
-
+**Pencarian Bank Sampah:**
