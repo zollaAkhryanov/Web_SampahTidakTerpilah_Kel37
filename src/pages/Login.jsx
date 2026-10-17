@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import Input from '../components/Input.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 import './Login.css'
 
 /* ------------------------------------------------------------------ */
@@ -9,6 +10,7 @@ import './Login.css'
 /* ------------------------------------------------------------------ */
 function FormPenggunaUmum() {
   const navigate = useNavigate()
+  const { login } = useAuth()
 
   const [form, setForm] = useState({ nama: '', wa: '', alamat: '' })
   const [errors, setErrors] = useState({})
@@ -55,11 +57,13 @@ function FormPenggunaUmum() {
     }
     setErrors({})
     setShowBanner(false)
-    setSukses(true)
+    // Simpan data ke auth context dan arahkan ke halaman layanan
+    login({ nama: form.nama, wa: form.wa, alamat: form.alamat, jenis: 'umum' })
+    navigate('/layanan')
   }
 
   const lanjutTanpaMasuk = () => {
-    navigate('/')
+    navigate('/layanan')
   }
 
   if (sukses) {

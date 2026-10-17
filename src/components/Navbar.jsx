@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Button from './Button.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 import './Navbar.css'
 
 const menu = [
@@ -11,6 +12,7 @@ const menu = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const { user, logout } = useAuth()
   const tutup = () => setOpen(false)
 
   return (
@@ -36,7 +38,25 @@ export default function Navbar() {
               {m.label}
             </NavLink>
           ))}
-          <Button to="/masuk" variant="outline" onClick={tutup}>Masuk</Button>
+          {user ? (
+            <div className="navbar__profil">
+              <div className="navbar__avatar" aria-hidden="true">
+                {user.nama.charAt(0).toUpperCase()}
+              </div>
+              <span className="navbar__profil-nama" title={user.nama}>
+                {user.nama.split(' ')[0]}
+              </span>
+              <button
+                type="button"
+                className="navbar__keluar"
+                onClick={() => { logout(); tutup() }}
+              >
+                Keluar
+              </button>
+            </div>
+          ) : (
+            <Button to="/masuk" variant="outline" onClick={tutup}>Masuk</Button>
+          )}
         </nav>
       </div>
     </header>

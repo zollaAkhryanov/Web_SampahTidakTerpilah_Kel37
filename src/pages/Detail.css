@@ -1,0 +1,333 @@
+/* ================================================================== */
+/* Detail & Jadwal Page                                                 */
+/* ================================================================== */
+
+.detail-page {
+  padding: 32px 0 64px;
+  background: var(--page);
+  min-height: calc(100vh - 64px);
+}
+
+/* Breadcrumb */
+.detail-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 0.8125rem;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.detail-breadcrumb__link {
+  color: var(--green);
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.detail-breadcrumb__link:hover { opacity: 0.75; }
+
+.detail-breadcrumb__sep {
+  color: var(--muted);
+  margin: 0 2px;
+}
+
+.detail-breadcrumb__current {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ================================================================== */
+/* Layout dua kolom                                                     */
+/* ================================================================== */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ================================================================== */
+/* Kolom kiri: Info bank                                               */
+/* ================================================================== */
+.detail-info {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Foto placeholder */
+.detail-info__foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-info__foto-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -0.02em;
+}
+
+.detail-info__foto-label {
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+/* Info teks */
+.detail-info__nama {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.detail-info__desc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Chips jenis sampah */
+.detail-info__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Lokasi */
+.detail-info__lokasi {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.detail-info__lokasi-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green);
+  margin: 0 0 4px;
+}
+
+.detail-info__lokasi-val {
+  font-size: 0.875rem;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ================================================================== */
+/* Kolom kanan: Pilih layanan                                          */
+/* ================================================================== */
+.detail-jadwal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-jadwal__judul {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Tab layanan */
+.detail-jadwal__tabs {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.detail-jadwal__tab {
+  flex: 1;
+  height: 40px;
+  border: none;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.detail-jadwal__tab:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.detail-jadwal__tab--active {
+  background: var(--panel);
+  color: var(--green);
+  outline: 1px solid var(--green);
+  outline-offset: -1px;
+  border-radius: 7px;
+  z-index: 1;
+}
+
+.detail-jadwal__tab:not(.detail-jadwal__tab--active):hover {
+  background: #f8faf9;
+}
+
+/* Baris tanggal / waktu */
+.detail-jadwal__baris {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-jadwal__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Date picker */
+.detail-jadwal__date-input {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--text);
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.detail-jadwal__date-input:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-color: var(--green);
+}
+
+.detail-jadwal__date-label {
+  font-size: 0.8125rem;
+  margin-top: 2px;
+}
+
+/* Grid slot waktu */
+.detail-jadwal__slot-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.detail-jadwal__slot {
+  height: 40px;
+  min-width: 72px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.detail-jadwal__slot:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.detail-jadwal__slot--active {
+  background: var(--panel);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* Info box */
+.detail-jadwal__info-box {
+  padding: 14px 16px;
+  background: var(--panel);
+  border-radius: 8px;
+  border: 1px solid #c6ddd2;
+}
+
+.detail-jadwal__info-judul {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+
+.detail-jadwal__info-teks {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tombol lanjutkan */
+.detail-jadwal__lanjut {
+  height: 44px;
+  font-size: 0.9375rem;
+  border-radius: 8px;
+}
+
+.detail-jadwal__lanjut--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.detail__back-btn {
+  margin-top: 16px;
+}
+
+/* ================================================================== */
+/* Responsivitas                                                        */
+/* ================================================================== */
+
+@media (max-width: 899px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-info__foto-placeholder {
+    width: 110px;
+    height: 110px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .detail-page {
+    padding: 20px 0 48px;
+  }
+
+  .detail-info,
+  .detail-jadwal {
+    padding: 20px;
+  }
+
+  .detail-jadwal__slot-grid {
+    gap: 8px;
+  }
+
+  .detail-jadwal__slot {
+    min-width: 60px;
+    padding: 0 10px;
+    font-size: 0.8125rem;
+  }
+}

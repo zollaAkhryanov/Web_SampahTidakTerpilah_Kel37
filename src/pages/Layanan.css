@@ -1,0 +1,310 @@
+/* ================================================================== */
+/* Layanan Page Styles                                                  */
+/* ================================================================== */
+
+.layanan-page {
+  padding: 40px 0 64px;
+  background: var(--page);
+  min-height: calc(100vh - 64px);
+}
+
+/* Header */
+.layanan-page__head {
+  margin-bottom: 28px;
+}
+
+.layanan-page__title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Body: sidebar + konten */
+.layanan-page__body {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ================================================================== */
+/* Sidebar Filter                                                       */
+/* ================================================================== */
+.filter-panel {
+  flex: 0 0 220px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: sticky;
+  top: 80px; /* di bawah navbar sticky */
+}
+
+.filter-panel__judul {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.filter-panel__group {
+  border: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.filter-panel__legend {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.filter-panel__opsi {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--text);
+  cursor: pointer;
+  padding: 6px 0;
+  user-select: none;
+}
+
+.filter-panel__opsi:hover {
+  color: var(--green);
+}
+
+.filter-panel__check {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.filter-panel__reset {
+  margin-top: 10px;
+}
+
+/* ================================================================== */
+/* Katalog (konten kanan)                                              */
+/* ================================================================== */
+.katalog {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Search bar */
+.katalog__cari {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.katalog__cari-input {
+  flex: 1;
+  height: 44px;
+  padding: 0 16px;
+  font-size: 0.875rem;
+}
+
+.katalog__cari-btn {
+  height: 44px;
+  padding: 0 24px;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Info baris hasil */
+.katalog__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.katalog__info-judul {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.katalog__info-jumlah {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+/* Grid kartu */
+.katalog__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* Kosong */
+.katalog__kosong {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ================================================================== */
+/* Kartu Bank Sampah                                                    */
+/* ================================================================== */
+.kartu {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.kartu:hover {
+  box-shadow: 0 4px 16px rgba(15, 107, 69, 0.08);
+  border-color: #c2d9cc;
+}
+
+.kartu__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kartu__nama {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.kartu__chips {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.kartu__lokasi {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.kartu__deskripsi {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.kartu__detail {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--green);
+  cursor: pointer;
+  text-align: left;
+  width: fit-content;
+  transition: color 0.15s;
+}
+
+.kartu__detail:hover {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+
+/* ================================================================== */
+/* Responsivitas                                                        */
+/* ================================================================== */
+
+/* Tablet */
+@media (min-width: 640px) and (max-width: 899px) {
+  .layanan-page__body {
+    flex-direction: column;
+  }
+
+  .filter-panel {
+    flex: none;
+    width: 100%;
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+  }
+
+  .filter-panel__judul {
+    grid-column: 1 / -1;
+  }
+
+  .filter-panel .btn {
+    grid-column: 1;
+  }
+
+  .filter-panel .filter-panel__reset {
+    grid-column: 2;
+    margin-top: 0;
+    align-self: end;
+  }
+
+  .katalog__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .layanan-page {
+    padding: 24px 0 48px;
+  }
+
+  .layanan-page__title {
+    font-size: 1.5rem;
+  }
+
+  .layanan-page__body {
+    flex-direction: column;
+  }
+
+  .filter-panel {
+    flex: none;
+    width: 100%;
+    position: static;
+  }
+
+  .katalog__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .katalog__cari {
+    flex-direction: column;
+  }
+
+  .katalog__cari-btn {
+    width: 100%;
+  }
+}
