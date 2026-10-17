@@ -30,7 +30,7 @@ export default function Beranda() {
             </p>
             <div className="hero__actions">
               <Button to="/layanan">Cari layanan</Button>
-              <Button to="/tentang" variant="outline">Tentang SampahTidakTerpilah</Button>
+              <Button to="/tentang" variant="outline">Tentang SampahPintar</Button>
             </div>
           </div>
           <div className="hero__photo">Ganti dengan foto asli</div>
