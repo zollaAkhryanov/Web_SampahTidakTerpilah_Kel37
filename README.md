@@ -8,7 +8,7 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 
 # Anggota Dan Kontribusi 
 - Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
-- Muhammad Alfian Febrianto [Menyusun Product Requirement Document (PRD) dalam format PDF: latar belakang, tujuan, kebutuhan fungsional dan non-fungsional, alur pengguna, spesifikasi desain, arsitektur teknis, pengujian, dan penggunaan AI.]
+- Muhammad Alfian Febrianto [Menyusun Product Requirement Document (PRD) dalam format WORD: latar belakang, tujuan, kebutuhan fungsional dan non-fungsional, alur pengguna, spesifikasi desain, arsitektur teknis, pengujian, dan penggunaan AI.]
 - Silas Torem Bernifu [Implementasi halaman Form Pengajuan Multi-Langkah (/ajukan/:id): Langkah 1 (Data Diri), Langkah 2 (Data Sampah), Langkah 3 (Konfirmasi), Tiket Layanan, validasi data, dan desain responsif sesuai Figma] Done
 - Suci Ramadhani [Implementasi halaman Detail dan Jadwal, informasi bank sampah, pilihan metode layanan, tanggal, waktu, dan desain responsif] Done
 - Widia Andani Rifaat []
