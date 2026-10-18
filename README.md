@@ -4,11 +4,11 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 # Tautan
 - Desain figma (modul 5): https://www.figma.com/design/PjhLrvM6CJcfWMplKa4kl8/Modul-5-Web-UIUX---Prototipe?node-id=0-1&p=f&t=YB8i603p5G3pp690-0
 - Repository:https://github.com/zollaAkhryanov/Web_SampahTidakTerpilah_Kel37.git
-- PRD:
+- PRD:https://docs.google.com/document/d/1i4jJ3XFqGUUI11sPrELlvKbDM_I1XD_-/edit?usp=sharing&ouid=107048611413856851235&rtpof=true&sd=true
 
 # Anggota Dan Kontribusi 
 - Zolla Akhryanov [Inisialisasi proyek, Navbar + hamburger, Beranda, komponen dasar | Upload project Sampah Tidak Terpilah] Done 
-- Muhammad Alfian Febrianto []
+- Muhammad Alfian Febrianto [PRD]
 - Silas Torem Bernifu [Implementasi halaman Form Pengajuan Multi-Langkah (/ajukan/:id): Langkah 1 (Data Diri), Langkah 2 (Data Sampah), Langkah 3 (Konfirmasi), Tiket Layanan, validasi data, dan desain responsif sesuai Figma] Done
 - Suci Ramadhani [Implementasi halaman Detail dan Jadwal, informasi bank sampah, pilihan metode layanan, tanggal, waktu, dan desain responsif] Done
 - Widia Andani Rifaat []
