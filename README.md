@@ -246,7 +246,39 @@ KETENTUAN PENGERJAAN
 - Input: [brief Modul 5 / referensi yang Anda pakai]
 - Hasil AI: Desain 9 layar dengan Figma Variables (Primitives dan Semantics)
 
-# Prompt 6 dst
+# Prompt 6: Implementasi Halaman Tentang
+- Tool: ChatGPT | Dikerjakan: Widia Andani Rifaat
+- Prompt: Kamu adalah front-end developer. Buat halaman Tentang untuk website "SampahPintar" menggunakan React JSX dan CSS biasa berdasarkan desain Figma yang terlampir.
+
+TEKNOLOGI
+- Vite + React, react-router-dom, CSS biasa (tanpa backend)
+- Gunakan struktur proyek yang sudah tersedia
+- Pisahkan kode JSX dan CSS ke dalam file masing-masing
+
+HALAMAN TENTANG (/tentang)
+- Menampilkan judul "Tentang SampahPintar" dan deskripsi singkat platform.
+- Menampilkan bagian "Untuk siapa" yang berisi dua kategori pengguna: masyarakat umum serta petugas dan pengelola bank sampah.
+- Menampilkan bagian "Layanan kami" yang terdiri dari tiga layanan: daftar bank sampah, jadwal setor, dan penjemputan.
+- Menampilkan informasi pengembang Kelompok 37 dan sumber data platform.
+
+DESAIN
+- Mengikuti design token yang sudah digunakan pada proyek.
+- Warna utama hijau tua #0F6B45.
+- Latar halaman abu-hijau terang.
+- Kartu berwarna putih dengan border tipis dan sudut membulat.
+- Font Inter dengan judul tebal.
+- Layout responsif untuk mobile, tablet, dan desktop.
+
+ATURAN
+- Tampilan harus semirip mungkin dengan desain Figma.
+- Navbar dan routing sudah tersedia, sehingga hanya perlu membuat isi halaman Tentang.
+- Jangan mengubah komponen atau halaman lain.
+- Jangan menambahkan fitur di luar desain.
+
+- Input: Screenshot desain halaman Tentang dari Figma dan struktur proyek SampahPintar yang sudah tersedia.
+- Hasil AI: Kode Tentang.jsx dan Tentang.css untuk menampilkan informasi platform, sasaran pengguna, layanan utama, dan informasi pengembang dengan tampilan responsif.
+
+# Prompt 7 dst
 [isi setiap selesai satu halaman]
 
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya 
