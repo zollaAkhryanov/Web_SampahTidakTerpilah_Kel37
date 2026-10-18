@@ -1,0 +1,200 @@
+/* HALAMAN TENTANG */
+.tentang-page {
+  min-height: calc(100vh - 70px);
+  background-color: #f7f9f8;
+  padding: 40px 0 60px;
+  color: #1b2722;
+}
+
+.tentang-container {
+  width: 88%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* JUDUL DAN DESKRIPSI */
+.tentang-intro {
+  margin-bottom: 30px;
+}
+
+.tentang-label {
+  display: block;
+  color: #086b46;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.tentang-intro h1 {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  margin: 0 0 14px;
+  color: #18251e;
+}
+
+.tentang-intro p {
+  max-width: 760px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #64716a;
+  margin: 0;
+}
+
+/* SECTION */
+.tentang-section {
+  margin-bottom: 30px;
+}
+
+.tentang-section h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 22px;
+  color: #18251e;
+}
+
+/* KARTU PENGGUNA */
+.tentang-users {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tentang-card {
+  background: #ffffff;
+  border: 1px solid #dce5df;
+  border-radius: 13px;
+  padding: 23px 22px;
+}
+
+.tentang-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 15px;
+  color: #1b2722;
+}
+
+.tentang-card p {
+  font-size: 14px;
+  color: #64716a;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* KARTU LAYANAN */
+.tentang-services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tentang-service-card {
+  background: #ffffff;
+  border: 1px solid #dce5df;
+  border-radius: 13px;
+  padding: 22px;
+}
+
+.tentang-number {
+  width: 44px;
+  height: 44px;
+  background: #eaf5ef;
+  color: #096b49;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 17px;
+}
+
+.tentang-service-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 15px;
+  color: #1b2722;
+}
+
+.tentang-service-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #64716a;
+  margin: 0;
+}
+
+/* INFORMASI PENGEMBANG */
+.tentang-footer {
+  background: #ffffff;
+  border: 1px solid #dce5df;
+  border-radius: 13px;
+  padding: 22px;
+}
+
+.tentang-footer h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: #1b2722;
+}
+
+.tentang-footer p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #64716a;
+  margin: 0;
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 900px) {
+  .tentang-container {
+    width: 90%;
+  }
+
+  .tentang-intro h1 {
+    font-size: 30px;
+  }
+
+  .tentang-section h2 {
+    font-size: 24px;
+  }
+
+  .tentang-users {
+    gap: 15px;
+  }
+
+  .tentang-services {
+    gap: 15px;
+  }
+}
+
+/* RESPONSIVE HP */
+@media (max-width: 600px) {
+  .tentang-page {
+    padding: 30px 0 45px;
+  }
+
+  .tentang-container {
+    width: 90%;
+  }
+
+  .tentang-intro h1 {
+    font-size: 27px;
+  }
+
+  .tentang-section h2 {
+    font-size: 22px;
+  }
+
+  .tentang-users,
+  .tentang-services {
+    grid-template-columns: 1fr;
+  }
+
+  .tentang-card,
+  .tentang-service-card,
+  .tentang-footer {
+    padding: 20px;
+  }
+}
