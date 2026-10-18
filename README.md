@@ -239,8 +239,13 @@ KETENTUAN PENGERJAAN
 - Input: Screenshot Figma 07 Form - Langkah 1, 08 Form - Langkah 2, dan 09 Form - Konfirmasi.
 - Hasil AI: Implementasi formulir pengajuan multi-langkah (/ajukan/:id) dengan kartu terpusat, Stepper interaktif, input data diri & data sampah, validasi data, ringkasan konfirmasi, serta tampilan tiket bukti pengajuan yang responsif dan konsisten dengan desain Figma.
 
+# Prompt 5: Desain high-fidelity Figma Modul 5
+- Tool: [nama alat, atau "Figma (manual)"] | Dikerjakan: Muhammad Alfian Febrianto
+- Prompt: [tempel prompt asli dari riwayat chat Modul 5, atau tulis "Dirancang manual tanpa AI"]
+- Input: [brief Modul 5 / referensi yang Anda pakai]
+- Hasil AI: Desain 9 layar dengan Figma Variables (Primitives dan Semantics)
 
-# Prompt 5 dst
+# Prompt 6 dst
 [isi setiap selesai satu halaman]
 
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya 
