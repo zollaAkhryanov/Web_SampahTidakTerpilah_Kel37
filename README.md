@@ -11,7 +11,7 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 - Muhammad Alfian Febrianto [Merancang desain high-fidelity Figma Modul 5 (Figma Variables Primitives dan Semantics, 9 layar) sebagai acuan visual aplikasi, dan menyusun Product Requirement Document (PRD) dalam format WORD] Done
 - Silas Torem Bernifu [Implementasi halaman Form Pengajuan Multi-Langkah (/ajukan/:id): Langkah 1 (Data Diri), Langkah 2 (Data Sampah), Langkah 3 (Konfirmasi), Tiket Layanan, validasi data, dan desain responsif sesuai Figma] Done
 - Suci Ramadhani [Implementasi halaman Detail dan Jadwal, informasi bank sampah, pilihan metode layanan, tanggal, waktu, dan desain responsif] Done
-- Widia Andani Rifaat []
+- Widia Andani Rifaat [[Implementasi halaman Tentang, informasi platform SampahPintar, sasaran pengguna, layanan yang tersedia, informasi pengembang, serta desain responsif] Done]
 
 # Status Halaman
 | Halaman | Rute | Status |
@@ -22,7 +22,7 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
 | Detail & Jadwal | - | Selesai |
 | Form Langkah 1, 2, Konfirmasi | /ajukan/:id | Selesai |
 | Sukses & Tiket | /ajukan/:id | Selesai |
-| Tentang | /tentang | Belum (placeholder) |
+| Tentang | /tentang | Selesai |
 
 # Fitur yang sudah berjalan
 - Navbar responsif dengan menu hamburger yang dapat dibuka-tutup di layar mobile (di bawah 640px)
@@ -44,6 +44,7 @@ langsung atau meminta penjemputan ke bank sampah terdekat.
   - Langkah 2 (Data Sampah): Pilihan kategori sampah yang diterima oleh bank sampah, estimasi berat, upload foto sampah, catatan tambahan, dan konfirmasi pemilahan.
   - Langkah 3 (Konfirmasi): Ringkasan lengkap jadwal, kontak pemohon, rincian sampah, dan tombol ubah data cepat.
 - Tiket Bukti Layanan & Sukses: Menghasilkan kode tiket unik, status "Menunggu diproses", ringkasan data, salin kode tiket, dan penyimpanan ke riwayat pengajuan (localStorage).
+- Halaman Tentang : Menampilkan informasi dan deskripsi singkat platform SampahPintar, Menampilkan sasaran pengguna, Menampilkan tiga layanan utama: daftar bank sampah, jadwal setor, dan penjemputan sampah, Menampilkan informasi pengembang Kelompok 37 dan sumber data.
 
 # Cara Menjalankan Lokal
 1. Pasang Node.js (versi 18 ke atas)
