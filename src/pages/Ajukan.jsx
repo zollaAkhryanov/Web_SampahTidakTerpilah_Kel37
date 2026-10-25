@@ -4,6 +4,7 @@ import { bankSampah } from '../data/bankSampah.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import Button from '../components/Button.jsx'
 import Chip from '../components/Chip.jsx'
+import { postPengajuan } from '../services/api.js'
 import './Ajukan.css'
 
 /* ------------------------------------------------------------------ */
@@ -115,7 +116,10 @@ export default function Ajukan() {
       status: 'Menunggu diproses',
     }
 
-    // Simpan ke localStorage
+    // Kirim data ke MockAPI endpoint /pengajuan (Tugas 4)
+    postPengajuan(tiketBaru)
+
+    // Simpan ke localStorage sebagai cache/fallback lokal
     try {
       const listLama = JSON.parse(localStorage.getItem('sp_pengajuan_list') || '[]')
       listLama.unshift(tiketBaru)

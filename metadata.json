@@ -1,0 +1,7 @@
+{
+  "name": "SampahTidakTerpilah",
+  "description": "Layanan pengelolaan dan pengajuan sampah tidak terpilah untuk bank sampah dan masyarakat.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
