@@ -189,6 +189,70 @@
   background: var(--green-dark);
 }
 
+/* Tombol terkunci saat mengirim */
+.ajukan-btn-lanjutkan:disabled,
+.ajukan-btn-kembali:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ajukan-btn-lanjutkan {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ajukan-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: ajukan-putar 0.7s linear infinite;
+}
+
+@keyframes ajukan-putar {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ajukan-spinner { animation-duration: 2s; }
+}
+
+/* Tombol salin kode tiket */
+.ajukan-btn-salin {
+  width: 100%;
+  height: 36px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px dashed var(--green);
+  background: #fff;
+  color: var(--green);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ajukan-btn-salin:hover {
+  background: var(--panel);
+}
+
+.ajukan-card__actions--sukses {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Select error */
+.field--error .ajukan-select {
+  border-color: var(--error-border);
+  background-color: var(--error-bg);
+}
+
+.field__input[aria-invalid='true'] {
+  border-color: var(--error-border);
+}
+
 /* ================================================================== */
 /* Step 3: Konfirmasi Pengajuan                                       */
 /* ================================================================== */
@@ -216,6 +280,8 @@
   color: var(--text);
   font-weight: 700;
   text-align: right;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* ================================================================== */
@@ -252,6 +318,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   background: var(--green);
   color: #fff;
   padding: 12px 16px;
@@ -264,6 +332,7 @@
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
 }
 
 /* ================================================================== */
@@ -290,11 +359,40 @@
   }
 
   .ajukan-stepper__line {
-    width: 28px;
+    width: 24px;
   }
 
   .ajukan-stepper {
     gap: 8px;
+  }
+
+  /* 375px: hanya langkah aktif yang menampilkan label, agar stepper tidak melebar */
+  .ajukan-stepper__item:not(.ajukan-stepper__item--current) .ajukan-stepper__label {
+    display: none;
+  }
+
+  /* Font 16px mencegah iOS memperbesar layar saat input difokus */
+  .ajukan-page .field__input,
+  .ajukan-page .ajukan-select {
+    font-size: 1rem;
+    height: 44px;
+  }
+
+  .ajukan-konfirmasi-row {
+    align-items: flex-start;
+  }
+
+  .ajukan-tiket-card {
+    padding: 16px;
+  }
+
+  .ajukan-card__actions--sukses {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ajukan-card__actions--sukses .btn {
+    width: 100%;
   }
 
   .ajukan-card__actions {
