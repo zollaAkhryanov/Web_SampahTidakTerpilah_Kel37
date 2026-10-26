@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import { bankSampah } from '../data/bankSampah.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import Button from '../components/Button.jsx'
 import Chip from '../components/Chip.jsx'
-import { postPengajuan } from '../services/api.js'
+import Input from '../components/Input.jsx'
+import { postPengajuan, getBankSampahById } from '../services/api.js'
 import './Ajukan.css'
 
 /* ------------------------------------------------------------------ */
@@ -26,110 +28,212 @@ function formatTanggalIndo(str) {
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Validasi per kolom (mengembalikan pesan error, atau '' jika valid)   */
+/* Semua nilai di-trim dulu sebelum dicek.                              */
+/* ------------------------------------------------------------------ */
+const REGEX_NAMA = /^[\p{L}][\p{L}\s.'-]*$/u
+const REGEX_WA = /^(\+62|62|0)8[1-9][0-9]{7,11}$/
+
+const validator = {
+  nama: (v) => {
+    const t = v.trim()
+    if (!t) return 'Nama lengkap wajib diisi.'
+    if (t.length < 3) return 'Nama minimal 3 karakter.'
+    if (t.length > 60) return 'Nama maksimal 60 karakter.'
+    if (!REGEX_NAMA.test(t)) return 'Nama hanya boleh berisi huruf, spasi, titik, atau tanda hubung.'
+    return ''
+  },
+  wa: (v) => {
+    const t = v.trim().replace(/[\s-]/g, '')
+    if (!t) return 'Nomor WhatsApp wajib diisi.'
+    if (!REGEX_WA.test(t)) return 'Format nomor tidak valid. Contoh: 081234567890.'
+    return ''
+  },
+  alamat: (v, { wajib }) => {
+    const t = v.trim()
+    if (!t) return wajib ? 'Alamat penjemputan wajib diisi.' : ''
+    if (t.length < 10) return 'Alamat terlalu singkat. Tulis jalan, kelurahan, dan kecamatan.'
+    if (t.length > 200) return 'Alamat maksimal 200 karakter.'
+    return ''
+  },
+  jenisSampah: (v) => (!v.trim() ? 'Pilih jenis sampah.' : ''),
+  berat: (v) => {
+    const t = String(v).trim().replace(',', '.')
+    if (!t) return 'Perkiraan berat wajib diisi.'
+    const n = Number(t)
+    if (Number.isNaN(n)) return 'Berat harus berupa angka.'
+    if (n < 1) return 'Berat minimal 1 kg.'
+    if (n > 500) return 'Berat maksimal 500 kg per pengajuan.'
+    return ''
+  },
+  catatan: (v) => (v.trim().length > 200 ? 'Catatan maksimal 200 karakter.' : ''),
+}
+
+const FIELD_STEP = { 1: ['nama', 'wa', 'alamat'], 2: ['jenisSampah', 'berat', 'catatan'] }
+
 export default function Ajukan() {
   const { id } = useParams()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { user } = useAuth()
 
-  // Ambil data bank sampah
-  const bank = bankSampah.find((b) => b.id === id) || {
+  // Data bank sampah: awalnya dari data lokal, lalu diperbarui dari API
+  const bankFallback = bankSampah.find((b) => b.id === id) || {
     id: id || 'induk-surabaya',
     nama: 'Bank Sampah Induk Surabaya',
     jenisSampah: ['Plastik', 'Kertas', 'Kardus', 'Botol'],
   }
+  const [bank, setBank] = useState(bankFallback)
+
+  useEffect(() => {
+    let batal = false
+    getBankSampahById(id)
+      .then((data) => {
+        if (!batal && data) setBank({ ...bankFallback, ...data })
+      })
+      .catch(() => {})
+    return () => {
+      batal = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
 
   // Parameter dari URL query
   const layanan = searchParams.get('layanan') || 'langsung'
   const waktu = searchParams.get('waktu') || '09.00'
   const tanggal = searchParams.get('tanggal') || '2026-10-05'
+  const wajibAlamat = layanan === 'jemput'
 
   // Step 1: Data Diri, Step 2: Data Sampah, Step 3: Konfirmasi
   const [step, setStep] = useState(1)
 
-  // Step 1: Data diri (sesuai screenshot 07: Nama lengkap, Nomor WhatsApp, Alamat)
-  const [nama, setNama] = useState(user?.nama || 'Muhammad Alfian Febrianto')
-  const [wa, setWa] = useState(user?.wa || '081234567890')
-  const [alamat, setAlamat] = useState(user?.alamat || '')
-
-  // Step 2: Data sampah (sesuai screenshot 08: Jenis sampah, Perkiraan berat (kg), Catatan)
-  const [jenisSampah, setJenisSampah] = useState('Plastik')
-  const [berat, setBerat] = useState('3')
-  const [catatan, setCatatan] = useState('Sudah dicuci dan dipisah per jenis')
-
-  // Status submit & tiket bukti
+  // Nilai form (kosong di awal, kecuali user sudah login)
+  const [values, setValues] = useState({
+    nama: user?.nama || '',
+    wa: user?.wa || '',
+    alamat: user?.alamat || '',
+    jenisSampah: '',
+    berat: '',
+    catatan: '',
+  })
+  const [errors, setErrors] = useState({})
+  const [submitting, setSubmitting] = useState(false)
   const [tiket, setTiket] = useState(null)
 
-  // Validasi error jika kosong
-  const [errors, setErrors] = useState({})
+  const cek = (name, nilai = values[name]) => validator[name](nilai, { wajib: wajibAlamat })
 
-  /* ------------------------------------------------------------------ */
-  /* Navigasi Step 1 -> Step 2                                          */
-  /* ------------------------------------------------------------------ */
+  const ubah = (name) => (e) => {
+    const nilai = e.target.value
+    setValues((v) => ({ ...v, [name]: nilai }))
+    // Hapus error saat user mulai memperbaiki
+    if (errors[name]) setErrors((er) => ({ ...er, [name]: cek(name, nilai) }))
+  }
+
+  // Validasi saat kolom ditinggalkan; spasi di pinggir dibersihkan
+  const saatBlur = (name) => () => {
+    const bersih = values[name].trim()
+    if (bersih !== values[name]) setValues((v) => ({ ...v, [name]: bersih }))
+    setErrors((er) => ({ ...er, [name]: cek(name, bersih) }))
+  }
+
+  const validasiStep = (nomor) => {
+    const err = {}
+    FIELD_STEP[nomor].forEach((name) => {
+      const pesan = cek(name)
+      if (pesan) err[name] = pesan
+    })
+    setErrors(err)
+    if (Object.keys(err).length > 0) {
+      // Fokus ke kolom pertama yang salah
+      const pertama = FIELD_STEP[nomor].find((n) => err[n])
+      document.getElementById(`in-${pertama}`)?.focus()
+      return false
+    }
+    // Simpan versi yang sudah di-trim
+    setValues((v) => {
+      const bersih = { ...v }
+      FIELD_STEP[nomor].forEach((n) => (bersih[n] = bersih[n].trim()))
+      return bersih
+    })
+    return true
+  }
+
+  const naikStep = (nomor) => {
+    setStep(nomor)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const handleLanjutStep1 = (e) => {
     e.preventDefault()
-    const err = {}
-    if (!nama.trim()) err.nama = 'Nama lengkap wajib diisi.'
-    if (!wa.trim()) err.wa = 'Nomor WhatsApp wajib diisi.'
-    if (Object.keys(err).length > 0) {
-      setErrors(err)
-      return
-    }
-    setErrors({})
-    setStep(2)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (validasiStep(1)) naikStep(2)
   }
 
-  /* ------------------------------------------------------------------ */
-  /* Navigasi Step 2 -> Step 3                                          */
-  /* ------------------------------------------------------------------ */
   const handleLanjutStep2 = (e) => {
     e.preventDefault()
-    const err = {}
-    if (!jenisSampah.trim()) err.jenisSampah = 'Jenis sampah wajib diisi.'
-    if (!berat.trim()) err.berat = 'Perkiraan berat wajib diisi.'
-    if (Object.keys(err).length > 0) {
-      setErrors(err)
-      return
-    }
-    setErrors({})
-    setStep(3)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (validasiStep(2)) naikStep(3)
   }
 
   /* ------------------------------------------------------------------ */
-  /* Submit Final: Buat Tiket                                           */
+  /* Submit Final: POST ke MockAPI, lalu buat tiket dari data tersimpan  */
   /* ------------------------------------------------------------------ */
-  const handleKirimPengajuan = () => {
-    const nomorAcak = Math.floor(1000 + Math.random() * 9000)
-    const kodeTiket = `SP-${bank.id.substring(0, 3).toUpperCase()}-${Date.now().toString().slice(-4)}${nomorAcak}`
+  const handleKirimPengajuan = async () => {
+    if (submitting) return
+    // Validasi ulang semua kolom sebelum dikirim
+    if (!validasiStep(1)) return naikStep(1)
+    if (!validasiStep(2)) return naikStep(2)
 
-    const tiketBaru = {
-      kode: kodeTiket,
+    const payload = {
+      bankId: bank.id,
       layanan: bank.nama,
       metode: layanan === 'jemput' ? 'Penjemputan' : 'Penyerahan langsung',
       jadwal: `${formatTanggalIndo(tanggal)}, ${waktu}`,
-      nama,
-      sampah: `${jenisSampah} · ${berat} kg`,
-      catatan,
-      alamat: alamat || '(Diserahkan langsung)',
+      nama: values.nama.trim(),
+      wa: values.wa.trim().replace(/[\s-]/g, ''),
+      jenisSampah: values.jenisSampah,
+      beratKg: Number(String(values.berat).trim().replace(',', '.')),
+      sampah: `${values.jenisSampah} · ${values.berat} kg`,
+      catatan: values.catatan.trim(),
+      alamat: values.alamat.trim() || '(Diserahkan langsung)',
       status: 'Menunggu diproses',
+      dibuatPada: new Date().toISOString(),
     }
 
-    // Kirim data ke MockAPI endpoint /pengajuan (Tugas 4)
-    postPengajuan(tiketBaru)
-
-    // Simpan ke localStorage sebagai cache/fallback lokal
+    setSubmitting(true)
     try {
-      const listLama = JSON.parse(localStorage.getItem('sp_pengajuan_list') || '[]')
-      listLama.unshift(tiketBaru)
-      localStorage.setItem('sp_pengajuan_list', JSON.stringify(listLama))
-    } catch (e) {
-      console.warn('Gagal menyimpan tiket', e)
-    }
+      const tersimpan = await postPengajuan(payload)
 
-    setTiket(tiketBaru)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Kode tiket dibuat dari ID data yang tersimpan di server
+      const nomor = String(tersimpan?.id ?? Date.now().toString().slice(-5)).padStart(4, '0')
+      const kode = `SP-${String(bank.id).substring(0, 3).toUpperCase()}-${nomor}`
+      const tiketBaru = { ...payload, ...tersimpan, kode }
+
+      // Cache lokal sebagai riwayat
+      try {
+        const listLama = JSON.parse(localStorage.getItem('sp_pengajuan_list') || '[]')
+        listLama.unshift(tiketBaru)
+        localStorage.setItem('sp_pengajuan_list', JSON.stringify(listLama))
+      } catch (err) {
+        console.warn('Gagal menyimpan riwayat lokal', err)
+      }
+
+      toast.success('Pengajuan berhasil dikirim!')
+      setTiket(tiketBaru)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (err) {
+      toast.error(err.message || 'Pengajuan gagal dikirim. Coba lagi.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  const salinKode = async () => {
+    try {
+      await navigator.clipboard.writeText(tiket.kode)
+      toast.success('Kode tiket disalin.')
+    } catch {
+      toast.error('Tidak bisa menyalin. Salin kode secara manual.')
+    }
   }
 
   const judulHalaman =
@@ -161,6 +265,9 @@ export default function Ajukan() {
                 </div>
                 <Chip variant="yellow">{tiket.status}</Chip>
               </div>
+              <button type="button" className="ajukan-btn-salin" onClick={salinKode}>
+                Salin kode tiket
+              </button>
 
               <div className="ajukan-konfirmasi-list" style={{ margin: 0 }}>
                 <div className="ajukan-konfirmasi-row">
@@ -186,7 +293,7 @@ export default function Ajukan() {
               </div>
             </div>
 
-            <div className="ajukan-card__actions" style={{ justifyContent: 'center', gap: '12px' }}>
+            <div className="ajukan-card__actions ajukan-card__actions--sukses">
               <Button to="/layanan" variant="outline">
                 Lihat Layanan Lain
               </Button>
@@ -215,23 +322,23 @@ export default function Ajukan() {
           <div className="ajukan-stepper-wrap">
             <ol className="ajukan-stepper">
               <li style={{ display: 'contents' }}>
-                <span className={`ajukan-stepper__item${step >= 1 ? ' ajukan-stepper__item--active' : ''}`}>
+                <span className={`ajukan-stepper__item${step >= 1 ? ' ajukan-stepper__item--active' : ''}${step === 1 ? ' ajukan-stepper__item--current' : ''}`}>
                   <span className="ajukan-stepper__num">1</span>
-                  <span>Data diri</span>
+                  <span className="ajukan-stepper__label">Data diri</span>
                 </span>
                 <span className="ajukan-stepper__line" />
               </li>
               <li style={{ display: 'contents' }}>
-                <span className={`ajukan-stepper__item${step >= 2 ? ' ajukan-stepper__item--active' : ''}`}>
+                <span className={`ajukan-stepper__item${step >= 2 ? ' ajukan-stepper__item--active' : ''}${step === 2 ? ' ajukan-stepper__item--current' : ''}`}>
                   <span className="ajukan-stepper__num">2</span>
-                  <span>Data sampah</span>
+                  <span className="ajukan-stepper__label">Data sampah</span>
                 </span>
                 <span className="ajukan-stepper__line" />
               </li>
               <li style={{ display: 'contents' }}>
-                <span className={`ajukan-stepper__item${step >= 3 ? ' ajukan-stepper__item--active' : ''}`}>
+                <span className={`ajukan-stepper__item${step >= 3 ? ' ajukan-stepper__item--active' : ''}${step === 3 ? ' ajukan-stepper__item--current' : ''}`}>
                   <span className="ajukan-stepper__num">3</span>
-                  <span>Konfirmasi</span>
+                  <span className="ajukan-stepper__label">Konfirmasi</span>
                 </span>
               </li>
             </ol>
@@ -250,60 +357,44 @@ export default function Ajukan() {
 
               {/* Baris 1: 2 Kolom (Nama lengkap & Nomor WhatsApp) */}
               <div className="ajukan-row-2col">
-                <div className={`field${errors.nama ? ' field--error' : ''}`}>
-                  <label className="field__label" htmlFor="in-nama">
-                    Nama lengkap
-                  </label>
-                  <input
-                    id="in-nama"
-                    type="text"
-                    className="field__input"
-                    value={nama}
-                    placeholder="Nama lengkap"
-                    onChange={(e) => {
-                      setNama(e.target.value)
-                      if (errors.nama) setErrors({ ...errors, nama: '' })
-                    }}
-                  />
-                  {errors.nama && <span className="field__error">{errors.nama}</span>}
-                </div>
-
-                <div className={`field${errors.wa ? ' field--error' : ''}`}>
-                  <label className="field__label" htmlFor="in-wa">
-                    Nomor WhatsApp
-                  </label>
-                  <input
-                    id="in-wa"
-                    type="tel"
-                    className="field__input"
-                    value={wa}
-                    placeholder="081234567890"
-                    onChange={(e) => {
-                      setWa(e.target.value)
-                      if (errors.wa) setErrors({ ...errors, wa: '' })
-                    }}
-                  />
-                  {errors.wa && <span className="field__error">{errors.wa}</span>}
-                </div>
+                <Input
+                  id="in-nama"
+                  label="Nama lengkap"
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Nama lengkap"
+                  value={values.nama}
+                  onChange={ubah('nama')}
+                  onBlur={saatBlur('nama')}
+                  error={errors.nama}
+                />
+                <Input
+                  id="in-wa"
+                  label="Nomor WhatsApp"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="081234567890"
+                  value={values.wa}
+                  onChange={ubah('wa')}
+                  onBlur={saatBlur('wa')}
+                  error={errors.wa}
+                />
               </div>
 
               {/* Baris 2: Full Width (Alamat) */}
               <div className="ajukan-field-group">
-                <div className="field">
-                  <label className="field__label" htmlFor="in-alamat">
-                    {layanan === 'jemput'
-                      ? 'Alamat penjemputan'
-                      : 'Alamat (opsional untuk setor langsung)'}
-                  </label>
-                  <input
-                    id="in-alamat"
-                    type="text"
-                    className="field__input"
-                    placeholder="Jalan, kelurahan, kecamatan"
-                    value={alamat}
-                    onChange={(e) => setAlamat(e.target.value)}
-                  />
-                </div>
+                <Input
+                  id="in-alamat"
+                  label={wajibAlamat ? 'Alamat penjemputan' : 'Alamat (opsional untuk setor langsung)'}
+                  type="text"
+                  autoComplete="street-address"
+                  placeholder="Jalan, kelurahan, kecamatan"
+                  value={values.alamat}
+                  onChange={ubah('alamat')}
+                  onBlur={saatBlur('alamat')}
+                  error={errors.alamat}
+                />
               </div>
 
               {/* Tombol Kembali & Lanjutkan */}
@@ -333,71 +424,57 @@ export default function Ajukan() {
               {/* Baris 1: 2 Kolom (Jenis sampah & Perkiraan berat (kg)) */}
               <div className="ajukan-row-2col">
                 <div className={`field${errors.jenisSampah ? ' field--error' : ''}`}>
-                  <label className="field__label" htmlFor="in-jenis-sampah">
+                  <label className="field__label" htmlFor="in-jenisSampah">
                     Jenis sampah
                   </label>
                   <select
-                    id="in-jenis-sampah"
+                    id="in-jenisSampah"
                     className="ajukan-select"
-                    value={jenisSampah}
-                    onChange={(e) => {
-                      setJenisSampah(e.target.value)
-                      if (errors.jenisSampah) setErrors({ ...errors, jenisSampah: '' })
-                    }}
+                    value={values.jenisSampah}
+                    aria-invalid={errors.jenisSampah ? 'true' : undefined}
+                    onChange={ubah('jenisSampah')}
+                    onBlur={saatBlur('jenisSampah')}
                   >
-                    {bank.jenisSampah?.map((j) => (
+                    <option value="">Pilih jenis sampah</option>
+                    {(bank.jenisSampah || ['Plastik', 'Kertas', 'Kardus', 'Botol']).map((j) => (
                       <option key={j} value={j}>
                         {j}
                       </option>
-                    )) || (
-                      <>
-                        <option value="Plastik">Plastik</option>
-                        <option value="Kertas">Kertas</option>
-                        <option value="Kardus">Kardus</option>
-                        <option value="Botol">Botol</option>
-                      </>
-                    )}
+                    ))}
                   </select>
                   {errors.jenisSampah && (
-                    <span className="field__error">{errors.jenisSampah}</span>
+                    <span className="field__error" role="alert">{errors.jenisSampah}</span>
                   )}
                 </div>
 
-                <div className={`field${errors.berat ? ' field--error' : ''}`}>
-                  <label className="field__label" htmlFor="in-berat">
-                    Perkiraan berat (kg)
-                  </label>
-                  <input
-                    id="in-berat"
-                    type="number"
-                    min="1"
-                    className="field__input"
-                    value={berat}
-                    placeholder="3"
-                    onChange={(e) => {
-                      setBerat(e.target.value)
-                      if (errors.berat) setErrors({ ...errors, berat: '' })
-                    }}
-                  />
-                  {errors.berat && <span className="field__error">{errors.berat}</span>}
-                </div>
+                <Input
+                  id="in-berat"
+                  label="Perkiraan berat (kg)"
+                  type="number"
+                  inputMode="decimal"
+                  min="1"
+                  max="500"
+                  step="any"
+                  placeholder="3"
+                  value={values.berat}
+                  onChange={ubah('berat')}
+                  onBlur={saatBlur('berat')}
+                  error={errors.berat}
+                />
               </div>
 
               {/* Baris 2: Full Width (Catatan) */}
               <div className="ajukan-field-group">
-                <div className="field">
-                  <label className="field__label" htmlFor="in-catatan">
-                    Catatan
-                  </label>
-                  <input
-                    id="in-catatan"
-                    type="text"
-                    className="field__input"
-                    placeholder="Sudah dicuci dan dipisah per jenis"
-                    value={catatan}
-                    onChange={(e) => setCatatan(e.target.value)}
-                  />
-                </div>
+                <Input
+                  id="in-catatan"
+                  label="Catatan (opsional)"
+                  type="text"
+                  placeholder="Sudah dicuci dan dipisah per jenis"
+                  value={values.catatan}
+                  onChange={ubah('catatan')}
+                  onBlur={saatBlur('catatan')}
+                  error={errors.catatan}
+                />
               </div>
 
               {/* Tombol Kembali & Lanjutkan */}
@@ -405,10 +482,7 @@ export default function Ajukan() {
                 <button
                   type="button"
                   className="ajukan-btn-kembali"
-                  onClick={() => {
-                    setStep(1)
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }}
+                  onClick={() => naikStep(1)}
                 >
                   Kembali
                 </button>
@@ -450,13 +524,13 @@ export default function Ajukan() {
 
                 <div className="ajukan-konfirmasi-row">
                   <span className="ajukan-konfirmasi-row__label">Nama</span>
-                  <span className="ajukan-konfirmasi-row__value">{nama}</span>
+                  <span className="ajukan-konfirmasi-row__value">{values.nama}</span>
                 </div>
 
                 <div className="ajukan-konfirmasi-row">
                   <span className="ajukan-konfirmasi-row__label">Sampah</span>
                   <span className="ajukan-konfirmasi-row__value">
-                    {jenisSampah} · {berat} kg
+                    {values.jenisSampah} · {values.berat} kg
                   </span>
                 </div>
               </div>
@@ -466,10 +540,8 @@ export default function Ajukan() {
                 <button
                   type="button"
                   className="ajukan-btn-kembali"
-                  onClick={() => {
-                    setStep(2)
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }}
+                  disabled={submitting}
+                  onClick={() => naikStep(2)}
                 >
                   Kembali
                 </button>
@@ -477,8 +549,16 @@ export default function Ajukan() {
                   type="button"
                   className="ajukan-btn-lanjutkan"
                   onClick={handleKirimPengajuan}
+                  disabled={submitting}
+                  aria-busy={submitting}
                 >
-                  Kirim pengajuan
+                  {submitting ? (
+                    <>
+                      <span className="ajukan-spinner" aria-hidden="true" /> Mengirim...
+                    </>
+                  ) : (
+                    'Kirim pengajuan'
+                  )}
                 </button>
               </div>
             </div>
