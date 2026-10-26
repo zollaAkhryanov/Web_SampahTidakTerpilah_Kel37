@@ -114,30 +114,48 @@ export async function getBankSampahById(id) {
 }
 
 /**
- * Mengirim pengajuan baru ke endpoint /pengajuan di MockAPI
+ * Mengirim pengajuan baru ke endpoint /pengajuan di MockAPI.
+ * Mengembalikan data yang tersimpan (termasuk `id` dari server).
+ * Melempar Error jika gagal, supaya UI bisa menampilkan pesan error (bukan sukses palsu).
  */
 export async function postPengajuan(dataPengajuan) {
-  if (API_BASE_URL && !API_BASE_URL.includes('67xxxxxxxxx')) {
-    const base = cleanBase(API_BASE_URL)
-    const candidates = [
-      `${base}/pengajuan`,
-      base.includes('/api/v1') ? `${base.replace('/api/v1', '')}/pengajuan` : `${base}/api/v1/pengajuan`
-    ]
+  if (!API_BASE_URL || API_BASE_URL.includes('67xxxxxxxxx')) {
+    throw new Error('Alamat API belum dikonfigurasi (VITE_API_URL).')
+  }
 
-    for (const url of candidates) {
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dataPengajuan),
-        })
-        if (res.ok) {
-          return await res.json()
-        }
-      } catch {
-        // Lanjut kandidat berikutnya
+  const base = cleanBase(API_BASE_URL)
+  const candidates = [
+    `${base}/pengajuan`,
+    base.includes('/api/v1')
+      ? `${base.replace('/api/v1', '')}/pengajuan`
+      : `${base}/api/v1/pengajuan`,
+  ]
+
+  let lastStatus = 0
+  for (const url of candidates) {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 10000)
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(dataPengajuan),
+        signal: controller.signal,
+      })
+      if (res.ok) {
+        return await res.json()
       }
+      lastStatus = res.status
+    } catch {
+      // Jaringan putus / timeout: coba kandidat berikutnya
+    } finally {
+      clearTimeout(timer)
     }
   }
-  return dataPengajuan
+
+  throw new Error(
+    lastStatus
+      ? `Server menolak pengajuan (HTTP ${lastStatus}).`
+      : 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.'
+  )
 }
