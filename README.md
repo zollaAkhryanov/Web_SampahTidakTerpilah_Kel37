@@ -283,3 +283,7 @@ ATURAN
 
 | Breakpoint | mobile <640px, tablet <900px (Beranda), desktop di atasnya 
 
+#Deployment
+- Link live: https://sampah-pintar-ten.vercel.app/
+- Hosting: Vercel
+
