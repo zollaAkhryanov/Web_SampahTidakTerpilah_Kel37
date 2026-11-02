@@ -40,6 +40,9 @@ export default function Navbar() {
           ))}
           {user ? (
             <div className="navbar__profil">
+              <span className="navbar__status-badge navbar__status-badge--masuk" title="Status: Sudah Masuk">
+                <span className="navbar__status-dot navbar__status-dot--aktif" /> Masuk
+              </span>
               <div className="navbar__avatar" aria-hidden="true">
                 {user.nama.charAt(0).toUpperCase()}
               </div>
@@ -55,7 +58,12 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <Button to="/masuk" variant="outline" onClick={tutup}>Masuk</Button>
+            <div className="navbar__guest-wrap">
+              <span className="navbar__status-badge navbar__status-badge--tamu" title="Status: Belum Masuk (Tamu)">
+                <span className="navbar__status-dot navbar__status-dot--tamu" /> Belum Masuk
+              </span>
+              <Button to="/masuk" variant="outline" onClick={tutup}>Masuk</Button>
+            </div>
           )}
         </nav>
       </div>

@@ -71,7 +71,7 @@
   place-items: center;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .ajukan-stepper__item--active .ajukan-stepper__num {
@@ -80,38 +80,40 @@
 }
 
 .ajukan-stepper__line {
-  width: 60px;
-  height: 1px;
-  background: var(--border);
+  width: 48px;
+  height: 2px;
+  background: #d9e2dd;
 }
 
-/* Centered Form Card */
+/* ================================================================== */
+/* Formulir Card (Tengah)                                             */
+/* ================================================================== */
 .ajukan-card {
-  max-width: 620px;
-  width: 100%;
+  max-width: 580px;
   margin: 0 auto;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 36px 40px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  padding: 32px;
 }
 
 .ajukan-card__title {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
   margin: 0 0 6px;
+  letter-spacing: -0.01em;
 }
 
 .ajukan-card__subtitle {
   font-size: 0.8125rem;
   color: var(--muted);
-  margin: 0 0 26px;
-  line-height: 1.45;
+  margin: 0 0 24px;
 }
 
-/* Layout Form 2 Kolom */
+/* ================================================================== */
+/* Grid Field & Layout                                                */
+/* ================================================================== */
 .ajukan-row-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -120,63 +122,65 @@
 }
 
 .ajukan-field-group {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
-/* Styling Input & Select */
+/* Dropdown Select custom matching Figma style */
 .ajukan-select {
-  height: 40px;
-  padding: 0 14px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fff;
-  font-size: 0.8125rem;
-  color: var(--text);
   width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-size: 0.875rem;
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
   cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7770' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 14px;
+  transition: border-color 0.15s;
 }
 
 .ajukan-select:focus {
-  outline: 2px solid var(--green);
-  outline-offset: 1px;
+  border-color: var(--green);
 }
 
-/* Action Buttons (Kembali di kiri, Lanjutkan di kanan) */
+/* ================================================================== */
+/* Tombol Navigasi Bawah                                              */
+/* ================================================================== */
 .ajukan-card__actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
 }
 
 .ajukan-btn-kembali {
   height: 40px;
-  padding: 0 24px;
-  border-radius: 8px;
-  border: 1px solid var(--green);
+  padding: 0 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   background: #fff;
-  color: var(--green);
+  color: var(--text);
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s;
 }
 
 .ajukan-btn-kembali:hover {
-  background: var(--panel);
+  background: #f7f9f8;
+  border-color: #ccd7d0;
 }
 
 .ajukan-btn-lanjutkan {
   height: 40px;
   padding: 0 24px;
-  border-radius: 8px;
-  border: 1px solid var(--green);
+  border: none;
+  border-radius: var(--radius-sm);
   background: var(--green);
   color: #fff;
   font-size: 0.8125rem;
@@ -189,77 +193,13 @@
   background: var(--green-dark);
 }
 
-/* Tombol terkunci saat mengirim */
-.ajukan-btn-lanjutkan:disabled,
-.ajukan-btn-kembali:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.ajukan-btn-lanjutkan {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.ajukan-spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: ajukan-putar 0.7s linear infinite;
-}
-
-@keyframes ajukan-putar {
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ajukan-spinner { animation-duration: 2s; }
-}
-
-/* Tombol salin kode tiket */
-.ajukan-btn-salin {
-  width: 100%;
-  height: 36px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  border: 1px dashed var(--green);
-  background: #fff;
-  color: var(--green);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.ajukan-btn-salin:hover {
-  background: var(--panel);
-}
-
-.ajukan-card__actions--sukses {
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Select error */
-.field--error .ajukan-select {
-  border-color: var(--error-border);
-  background-color: var(--error-bg);
-}
-
-.field__input[aria-invalid='true'] {
-  border-color: var(--error-border);
-}
-
 /* ================================================================== */
 /* Step 3: Konfirmasi Pengajuan                                       */
 /* ================================================================== */
 .ajukan-konfirmasi-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  border-top: 1px solid var(--border);
   margin-bottom: 24px;
 }
 
@@ -267,7 +207,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
   font-size: 0.8125rem;
 }
 
@@ -280,12 +221,10 @@
   color: var(--text);
   font-weight: 700;
   text-align: right;
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 
 /* ================================================================== */
-/* Halaman Sukses / Bukti Tiket                                       */
+/* Layar Sukses / Bukti Tiket                                         */
 /* ================================================================== */
 .ajukan-sukses-box {
   text-align: center;
@@ -295,113 +234,62 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--panel);
-  border: 2px solid var(--green);
+  background: #e8f5ee;
   color: var(--green);
+  font-size: 1.75rem;
   display: grid;
   place-items: center;
-  font-size: 1.75rem;
-  font-weight: 800;
   margin: 0 auto 16px;
+  font-weight: bold;
 }
 
 .ajukan-tiket-card {
-  background: var(--page);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
   text-align: left;
-  margin: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: 24px 0;
+  background: #fff;
 }
 
 .ajukan-tiket-code-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
   background: var(--green);
   color: #fff;
   padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
 }
 
 .ajukan-tiket-code {
-  font-family: monospace;
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  overflow-wrap: anywhere;
+}
+
+.ajukan-tiket-card .ajukan-konfirmasi-list {
+  padding: 0 16px;
+  border-top: none;
 }
 
 /* ================================================================== */
 /* Responsif                                                          */
 /* ================================================================== */
 @media (max-width: 639px) {
-  .ajukan-page {
-    padding: 24px 0 60px;
-  }
-
   .ajukan-card {
-    padding: 24px 20px;
-    border-radius: 12px;
-  }
-
-  .ajukan-header__title {
-    font-size: 1.5rem;
+    padding: 24px 16px;
   }
 
   .ajukan-row-2col {
     grid-template-columns: 1fr;
-    gap: 14px;
-    margin-bottom: 14px;
+    gap: 12px;
   }
 
   .ajukan-stepper__line {
-    width: 24px;
-  }
-
-  .ajukan-stepper {
-    gap: 8px;
-  }
-
-  /* 375px: hanya langkah aktif yang menampilkan label, agar stepper tidak melebar */
-  .ajukan-stepper__item:not(.ajukan-stepper__item--current) .ajukan-stepper__label {
-    display: none;
-  }
-
-  /* Font 16px mencegah iOS memperbesar layar saat input difokus */
-  .ajukan-page .field__input,
-  .ajukan-page .ajukan-select {
-    font-size: 1rem;
-    height: 44px;
-  }
-
-  .ajukan-konfirmasi-row {
-    align-items: flex-start;
-  }
-
-  .ajukan-tiket-card {
-    padding: 16px;
-  }
-
-  .ajukan-card__actions--sukses {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .ajukan-card__actions--sukses .btn {
-    width: 100%;
+    width: 28px;
   }
 
   .ajukan-card__actions {
     margin-top: 24px;
-  }
-
-  .ajukan-btn-kembali,
-  .ajukan-btn-lanjutkan {
-    flex: 1;
-    padding: 0 16px;
   }
 }

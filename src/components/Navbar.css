@@ -15,6 +15,29 @@
 .navbar__profil {
   display: flex; align-items: center; gap: 8px;
 }
+.navbar__guest-wrap {
+  display: flex; align-items: center; gap: 10px;
+}
+.navbar__status-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 8px; border-radius: 999px;
+  font-size: 0.6875rem; font-weight: 600;
+}
+.navbar__status-badge--masuk {
+  background: var(--panel); color: var(--green); border: 1px solid #c2d9cc;
+}
+.navbar__status-badge--tamu {
+  background: #f1f3f2; color: #6b7770; border: 1px solid #e1e8e4;
+}
+.navbar__status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.navbar__status-dot--aktif {
+  background: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+.navbar__status-dot--tamu {
+  background: #9ca3af;
+}
 .navbar__avatar {
   width: 32px; height: 32px; border-radius: 50%;
   background: var(--green); color: #fff;

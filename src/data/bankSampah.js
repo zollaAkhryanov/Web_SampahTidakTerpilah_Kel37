@@ -15,7 +15,7 @@ export const bankSampah = [
     lokasi: 'Kampus ITS Sukolilo, Surabaya',
     deskripsi:
       'Sampah anorganik yang sudah dipilah dan dibersihkan ditimbang, lalu ditukar menjadi poin sesuai beratnya.',
-    layanan: ['Langsung'],
+    layanan: ['Langsung', 'Jemput'],
     jenisSampah: ['Plastik', 'Kertas'],
   },
   {
@@ -24,7 +24,7 @@ export const bankSampah = [
     lokasi: 'Kelurahan Jambangan, Surabaya',
     deskripsi:
       'Bank sampah warga di Kelurahan Jambangan yang mengelola sampah plastik dan memberdayakan masyarakat sekitar.',
-    layanan: ['Langsung'],
+    layanan: ['Langsung', 'Jemput'],
     jenisSampah: ['Plastik'],
   },
   {
@@ -33,7 +33,8 @@ export const bankSampah = [
     lokasi: 'Kecamatan Jambangan, Surabaya',
     deskripsi:
       'Bank sampah warga di Simojawar. Menerima setoran nasabah dan mengonversinya menjadi nilai ekonomi.',
-    layanan: ['Langsung'],
+    layanan: ['Langsung', 'Jemput'],
     jenisSampah: ['Plastik', 'Botol'],
   },
 ]
+

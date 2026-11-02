@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { bankSampah } from '../data/bankSampah.js'
-import { getBankSampahById } from '../services/api.js'
 import Chip from '../components/Chip.jsx'
 import Button from '../components/Button.jsx'
 import './Detail.css'
@@ -27,23 +26,7 @@ const SLOT_JEMPUT   = ['08.00', '09.00', '11.00', '14.00', '16.00']
 export default function Detail() {
   const { id }    = useParams()
   const navigate  = useNavigate()
-  const [bank, setBank] = useState(() => {
-    return bankSampah.find((b) => String(b.id) === String(id) || b.slug === id)
-  })
-  const [loading, setLoading] = useState(!bank)
-
-  useEffect(() => {
-    let active = true
-    getBankSampahById(id).then((data) => {
-      if (active && data) {
-        setBank(data)
-        setLoading(false)
-      }
-    }).catch(() => {
-      if (active) setLoading(false)
-    })
-    return () => { active = false }
-  }, [id])
+  const bank      = bankSampah.find((b) => b.id === id)
 
   // Jenis layanan yang dipilih (tab)
   const [layanan, setLayanan] = useState('langsung')
@@ -52,15 +35,6 @@ export default function Detail() {
   // Tanggal yang dipilih (default: hari ini)
   const todayISO = new Date().toISOString().split('T')[0]
   const [tanggal, setTanggal] = useState(todayISO)
-
-  /* Jika masih loading data dari API */
-  if (loading) {
-    return (
-      <main className="container page-pad">
-        <p className="muted">Memuat detail bank sampah...</p>
-      </main>
-    )
-  }
 
   /* Jika ID tidak ditemukan */
   if (!bank) {
@@ -87,7 +61,7 @@ export default function Detail() {
   /* Lanjutkan ke form */
   const lanjutkan = () => {
     if (!waktu) return
-    navigate(`/ajukan/${bank.slug || bank.id}?layanan=${layanan}&waktu=${encodeURIComponent(waktu)}&tanggal=${tanggal}`)
+    navigate(`/ajukan/${bank.id}?layanan=${layanan}&waktu=${encodeURIComponent(waktu)}&tanggal=${tanggal}`)
   }
 
   /* Format tanggal terpilih ke Bahasa Indonesia */
@@ -97,10 +71,8 @@ export default function Detail() {
   })()
 
   /* Cek apakah bank mendukung kedua layanan */
-  const layananList  = Array.isArray(bank.layanan) ? bank.layanan : ['Langsung']
-  const jenisSampahList = Array.isArray(bank.jenisSampah) ? bank.jenisSampah : ['Plastik']
-  const adaJemput    = layananList.includes('Jemput')
-  const adaLangsung  = layananList.includes('Langsung')
+  const adaJemput    = bank.layanan.includes('Jemput')
+  const adaLangsung  = bank.layanan.includes('Langsung')
 
   return (
     <main className="detail-page">
@@ -130,7 +102,7 @@ export default function Detail() {
 
             {/* Chip jenis sampah */}
             <div className="detail-info__chips">
-              {jenisSampahList.map((s) => (
+              {bank.jenisSampah.map((s) => (
                 <Chip key={s} variant="green">{s}</Chip>
               ))}
             </div>

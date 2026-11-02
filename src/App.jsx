@@ -1,5 +1,4 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext.jsx'
 import Navbar from './components/Navbar.jsx'
 import Beranda from './pages/Beranda.jsx'
@@ -28,22 +27,6 @@ function AppShell() {
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        containerStyle={{ top: 76 }}
-        toastOptions={{
-          duration: 4000,
-          style: {
-            maxWidth: 'min(92vw, 380px)',
-            fontSize: '0.8125rem',
-            fontWeight: 600,
-            color: '#17201b',
-            border: '1px solid #e1e8e4',
-          },
-          success: { iconTheme: { primary: '#0f6b45', secondary: '#fff' } },
-          error: { iconTheme: { primary: '#d94343', secondary: '#fff' } },
-        }}
-      />
       {tampilkanNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Beranda />} />
@@ -65,4 +48,3 @@ export default function App() {
     </AuthProvider>
   )
 }
-

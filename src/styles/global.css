@@ -49,11 +49,13 @@ button, input { font: inherit; }
 
 /* Chip */
 .chip {
-  display: inline-block; padding: 4px 12px; border-radius: 999px;
-  font-size: 0.6875rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 999px;
+  font-size: 0.6875rem; font-weight: 600; line-height: 1.2;
 }
-.chip--green { background: var(--panel); color: var(--green); }
-.chip--yellow { background: var(--yellow-bg); color: var(--yellow-text); }
+.chip--green { background: var(--panel); color: var(--green); border: 1px solid #c2d9cc; }
+.chip--yellow { background: var(--yellow-bg); color: var(--yellow-text); border: 1px solid #ffe199; }
+.chip--red { background: #fdeaea; color: #d94343; border: 1px solid #fecaca; }
+.chip--gray { background: #f1f3f2; color: #5a645f; border: 1px solid #e1e8e4; }
 
 /* Input */
 .field { display: flex; flex-direction: column; gap: 6px; }
