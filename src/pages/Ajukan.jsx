@@ -62,6 +62,9 @@ export default function Ajukan() {
   // Validasi error jika kosong
   const [errors, setErrors] = useState({})
 
+  // Mengunci tombol kirim supaya tidak bisa diklik berkali-kali
+  const [sedangKirim, setSedangKirim] = useState(false)
+
   /* ------------------------------------------------------------------ */
   /* Proteksi Rute: Layanan Penjemputan hanya untuk pengguna yang login */
   /* ------------------------------------------------------------------ */
@@ -147,6 +150,10 @@ export default function Ajukan() {
   /* Submit Final: Buat Tiket                                           */
   /* ------------------------------------------------------------------ */
   const handleKirimPengajuan = () => {
+    // Cegah klik berulang: kalau sedang mengirim, abaikan
+    if (sedangKirim) return
+    setSedangKirim(true)
+
     const nomorAcak = Math.floor(1000 + Math.random() * 9000)
     const kodeTiket = `SP-${bank.id.substring(0, 3).toUpperCase()}-${Date.now().toString().slice(-4)}${nomorAcak}`
 
@@ -172,6 +179,22 @@ export default function Ajukan() {
     }
 
     setTiket(tiketBaru)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Reset: kosongkan semua isian dan kembali ke langkah 1              */
+  /* ------------------------------------------------------------------ */
+  const handleReset = () => {
+    setNama(user?.nama || '')
+    setWa(user?.wa || '')
+    setAlamat(user?.alamat || '')
+    setJenisSampah(bank.jenisSampah?.[0] || 'Plastik')
+    setBerat('')
+    setCatatan('')
+    setErrors({})
+    setSedangKirim(false)
+    setStep(1)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -504,7 +527,7 @@ export default function Ajukan() {
                 </div>
               </div>
 
-              {/* Tombol Kembali & Kirim Pengajuan */}
+              {/* Tombol Kembali, Reset & Kirim Pengajuan */}
               <div className="ajukan-card__actions">
                 <button
                   type="button"
@@ -513,15 +536,25 @@ export default function Ajukan() {
                     setStep(2)
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                   }}
+                  disabled={sedangKirim}
                 >
                   Kembali
                 </button>
                 <button
                   type="button"
+                  className="ajukan-btn-kembali"
+                  onClick={handleReset}
+                  disabled={sedangKirim}
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
                   className="ajukan-btn-lanjutkan"
                   onClick={handleKirimPengajuan}
+                  disabled={sedangKirim}
                 >
-                  Kirim pengajuan
+                  {sedangKirim ? 'Mengirim...' : 'Kirim pengajuan'}
                 </button>
               </div>
             </div>
