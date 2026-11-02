@@ -46,9 +46,9 @@ export default function Ajukan() {
   // Step 1: Data Diri, Step 2: Data Sampah, Step 3: Konfirmasi
   const [step, setStep] = useState(1)
 
-  // Step 1: Data diri (sesuai screenshot 07: Nama lengkap, Nomor WhatsApp, Alamat)
-  const [nama, setNama] = useState(user?.nama || 'Muhammad Alfian Febrianto')
-  const [wa, setWa] = useState(user?.wa || '081234567890')
+  // Step 1: Data diri (jika sudah masuk, otomatis terisi data akun)
+  const [nama, setNama] = useState(user?.nama || '')
+  const [wa, setWa] = useState(user?.wa || '')
   const [alamat, setAlamat] = useState(user?.alamat || '')
 
   // Step 2: Data sampah (sesuai screenshot 08: Jenis sampah, Perkiraan berat (kg), Catatan)
@@ -61,6 +61,53 @@ export default function Ajukan() {
 
   // Validasi error jika kosong
   const [errors, setErrors] = useState({})
+
+  /* ------------------------------------------------------------------ */
+  /* Proteksi Rute: Layanan Penjemputan hanya untuk pengguna yang login */
+  /* ------------------------------------------------------------------ */
+  if (layanan === 'jemput' && !user) {
+    return (
+      <main className="ajukan-page">
+        <div className="container">
+          <div className="ajukan-card" style={{ textAlign: 'center' }}>
+            <div
+              style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                background: '#ffedd5',
+                color: '#ea580c',
+                display: 'grid',
+                placeItems: 'center',
+                fontSize: '1.75rem',
+                margin: '0 auto 16px',
+              }}
+              aria-hidden="true"
+            >
+              🔒
+            </div>
+            <h1 className="ajukan-card__title" style={{ fontSize: '1.375rem', marginBottom: '8px' }}>
+              Penjemputan Memerlukan Akun
+            </h1>
+            <p className="ajukan-card__subtitle" style={{ marginBottom: '24px', lineHeight: '1.55' }}>
+              Pengguna yang belum login belum bisa meminta penjemputan. Anda tetap dapat melakukan penyerahan langsung ke lokasi, atau masuk ke akun Anda untuk menjadwalkan penjemputan ke alamat ini.
+            </p>
+            <div className="ajukan-card__actions" style={{ justifyContent: 'center', gap: '12px' }}>
+              <Button to={`/layanan/${bank.id}`} variant="outline">
+                Kembali ke Detail
+              </Button>
+              <Button
+                to={`/masuk?redirect=${encodeURIComponent(`/ajukan/${bank.id}?layanan=jemput&waktu=${waktu}&tanggal=${tanggal}`)}&pesan=${encodeURIComponent('Silakan masuk terlebih dahulu untuk mengajukan penjemputan sampah.')}`}
+                variant="primary"
+              >
+                Masuk Sekarang
+              </Button>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   /* ------------------------------------------------------------------ */
   /* Navigasi Step 1 -> Step 2                                          */

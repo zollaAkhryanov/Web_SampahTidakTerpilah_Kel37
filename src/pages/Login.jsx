@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import Input from '../components/Input.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -8,7 +8,7 @@ import './Login.css'
 /* ------------------------------------------------------------------ */
 /* Sub-komponen: Form Pengguna Umum                                     */
 /* ------------------------------------------------------------------ */
-function FormPenggunaUmum() {
+function FormPenggunaUmum({ redirect }) {
   const navigate = useNavigate()
   const { login } = useAuth()
 
@@ -57,13 +57,13 @@ function FormPenggunaUmum() {
     }
     setErrors({})
     setShowBanner(false)
-    // Simpan data ke auth context dan arahkan ke halaman layanan
+    // Simpan data ke auth context dan arahkan ke halaman target (atau katalog layanan)
     login({ nama: form.nama, wa: form.wa, alamat: form.alamat, jenis: 'umum' })
-    navigate('/layanan')
+    navigate(redirect || '/layanan')
   }
 
   const lanjutTanpaMasuk = () => {
-    navigate('/layanan')
+    navigate(redirect || '/layanan')
   }
 
   if (sukses) {
@@ -76,9 +76,9 @@ function FormPenggunaUmum() {
           Silakan jelajahi layanan bank sampah di Surabaya.
         </p>
         <p className="login__sukses-note">
-          (Catatan: Ini adalah simulasi antarmuka. Data belum dikirim ke server karena backend belum tersedia.)
+          (Catatan: Ini adalah simulasi antarmuka. Data tersimpan di sesi peramban Anda.)
         </p>
-        <Button block onClick={() => navigate('/layanan')}>
+        <Button block onClick={() => navigate(redirect || '/layanan')}>
           Lihat Layanan
         </Button>
         <Button
@@ -174,7 +174,11 @@ function FormPetugas() {
 /* Komponen utama: Halaman Login                                        */
 /* ------------------------------------------------------------------ */
 export default function Login() {
+  const [searchParams] = useSearchParams()
   const [jenis, setJenis] = useState('umum') // 'umum' | 'petugas'
+
+  const redirect = searchParams.get('redirect') || '/layanan'
+  const pesan = searchParams.get('pesan')
 
   return (
     <div className="login-page">
@@ -186,8 +190,8 @@ export default function Login() {
             Kelola pengajuan sampah dengan lebih teratur.
           </h1>
           <p className="login__desc">
-            Masuk untuk melihat layanan bank sampah di Surabaya dan memantau
-            status pengajuan Anda.
+            Masuk untuk meminta penjemputan sampah terpilah, menghubungi pengurus
+            bank sampah di Surabaya, dan memantau status pengajuan Anda.
           </p>
         </div>
       </aside>
@@ -195,6 +199,28 @@ export default function Login() {
       {/* Kolom kanan: form */}
       <main className="login__main" id="main-content">
         <div className="login__card">
+          {pesan && (
+            <div
+              style={{
+                background: '#fff8eb',
+                border: '1px solid #fed7aa',
+                borderRadius: '8px',
+                padding: '12px 14px',
+                color: '#9a3412',
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+              role="alert"
+            >
+              <span aria-hidden="true">🔒</span>
+              <span>{pesan}</span>
+            </div>
+          )}
+
           <h2 className="login__title">Masuk ke SampahPintar</h2>
           <p className="login__subtitle">Isi data berikut untuk melanjutkan.</p>
 
@@ -221,7 +247,7 @@ export default function Login() {
           </div>
 
           {/* Konten form sesuai jenis */}
-          {jenis === 'umum' ? <FormPenggunaUmum /> : <FormPetugas />}
+          {jenis === 'umum' ? <FormPenggunaUmum redirect={redirect} /> : <FormPetugas />}
         </div>
       </main>
     </div>
