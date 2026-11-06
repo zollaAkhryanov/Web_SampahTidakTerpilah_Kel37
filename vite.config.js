@@ -8,11 +8,18 @@ export default defineConfig({
     port: 3000,
     allowedHosts: 'all'
   },
+  esbuild: {
+    legalComments: 'none',
+    drop: ['console', 'debugger']
+  },
   build: {
     target: 'es2020',
     minify: 'esbuild',
     cssMinify: true,
     cssCodeSplit: true,
+    modulePreload: {
+      polyfill: false
+    },
     rollupOptions: {
       output: {
         manualChunks: {

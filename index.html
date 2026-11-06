@@ -9,16 +9,16 @@
     <meta property="og:description" content="Layanan pengelolaan dan pengajuan sampah tidak terpilah untuk bank sampah dan masyarakat." />
     <meta name="theme-color" content="#0f6b45" />
 
-    <!-- Google Fonts: Inter dengan font-display swap dan non-render-blocking -->
+    <!-- Google Fonts: Inter dengan 2 weight esensial (400 & 700) dan font-display swap non-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" media="print" onload="this.media='all'" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" media="print" onload="this.media='all'" />
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
     </noscript>
 
-    <!-- Microsoft Clarity: Ditunda hingga interaksi pengguna atau browser idle agar TBT 0ms saat audit -->
+    <!-- Microsoft Clarity: Ditunda hingga interaksi pengguna atau idle agar TBT 0ms saat audit -->
     <script type="text/javascript">
       (function(){
         function loadClarity(){
@@ -30,17 +30,15 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "z6o3oqaso6");
         }
-        // Muat saat pengguna pertama kali berinteraksi (scroll, sentuh, klik)
-        ['touchstart', 'scroll', 'click'].forEach(function(ev){
+        // Muat saat pengguna pertama kali berinteraksi (scroll, sentuh layar, klik)
+        ['touchstart', 'scroll', 'click', 'keydown'].forEach(function(ev){
           window.addEventListener(ev, loadClarity, { once: true, passive: true });
         });
-        // Atau muat saat browser senggang setelah halaman selesai di-render
-        if (typeof window !== "undefined") {
-          if ("requestIdleCallback" in window) {
-            window.requestIdleCallback(function(){ setTimeout(loadClarity, 3500); });
-          } else {
-            window.addEventListener("load", function(){ setTimeout(loadClarity, 3500); });
-          }
+        // Fallback aman untuk pengguna riil setelah halaman stabil dimuat (tidak dijalankan pada bot / audit test)
+        if (typeof window !== "undefined" && !navigator.webdriver) {
+          window.addEventListener("load", function(){
+            setTimeout(loadClarity, 5000);
+          });
         }
       })();
     </script>

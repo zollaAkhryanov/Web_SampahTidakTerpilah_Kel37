@@ -3,8 +3,10 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
 import Navbar from './components/Navbar.jsx'
 
-// Lazy loading halaman agar payload JavaScript awal minimal (Code Splitting)
-const Beranda = lazy(() => import('./pages/Beranda.jsx'))
+// Halaman Beranda diimpor langsung agar render awal (FCP & LCP) instan tanpa request waterfall sekunder
+import Beranda from './pages/Beranda.jsx'
+
+// Lazy loading untuk halaman-halaman yang tidak dibutuhkan di tampilan awal
 const Login = lazy(() => import('./pages/Login.jsx'))
 const Layanan = lazy(() => import('./pages/Layanan.jsx'))
 const Detail = lazy(() => import('./pages/Detail.jsx'))
