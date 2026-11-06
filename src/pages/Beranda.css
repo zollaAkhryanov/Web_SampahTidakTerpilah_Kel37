@@ -16,7 +16,15 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--green);
-  contain: layout;
+  contain: layout paint;
+  overflow: hidden;
+}
+.hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  display: block;
 }
 
 .cari .h2 { font-size: 1rem; }
