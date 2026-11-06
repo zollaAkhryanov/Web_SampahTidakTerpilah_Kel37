@@ -7,5 +7,16 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
     allowedHosts: 'all'
+  },
+  build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom']
+        }
+      }
+    }
   }
 })

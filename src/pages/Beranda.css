@@ -5,8 +5,18 @@
 .hero__desc { max-width: 420px; margin: 0 0 20px; font-size: 0.75rem; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero__photo {
-  min-height: 220px; background: var(--panel); border: 1px solid #d3e6dc; border-radius: var(--radius-lg);
-  display: grid; place-items: center; font-size: 0.75rem; font-weight: 600; color: var(--green);
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 220px;
+  background: var(--panel);
+  border: 1px solid #d3e6dc;
+  border-radius: var(--radius-lg);
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--green);
+  contain: layout;
 }
 
 .cari .h2 { font-size: 1rem; }

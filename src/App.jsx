@@ -1,20 +1,33 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
 import Navbar from './components/Navbar.jsx'
-import Beranda from './pages/Beranda.jsx'
-import Login from './pages/Login.jsx'
-import Layanan from './pages/Layanan.jsx'
-import Detail from './pages/Detail.jsx'
-import Ajukan from './pages/Ajukan.jsx'
-import Tentang from './pages/Tentang.jsx'
 
-// Halaman lain ditambahkan per tahap (Detail, Form, Sukses).
-function Segera({ judul }) {
+// Lazy loading halaman agar payload JavaScript awal minimal (Code Splitting)
+const Beranda = lazy(() => import('./pages/Beranda.jsx'))
+const Login = lazy(() => import('./pages/Login.jsx'))
+const Layanan = lazy(() => import('./pages/Layanan.jsx'))
+const Detail = lazy(() => import('./pages/Detail.jsx'))
+const Ajukan = lazy(() => import('./pages/Ajukan.jsx'))
+const Tentang = lazy(() => import('./pages/Tentang.jsx'))
+
+// Fallback pemuat ringan tanpa layout shift
+function FallbackPemuat() {
   return (
-    <main className="container page-pad">
-      <h1 className="h1">{judul}</h1>
-      <p className="muted">Halaman ini dibuat pada tahap berikutnya.</p>
-    </main>
+    <div
+      role="status"
+      aria-live="polite"
+      aria-label="Memuat konten..."
+      style={{
+        minHeight: '60vh',
+        display: 'grid',
+        placeItems: 'center',
+        color: 'var(--muted)',
+        fontSize: '0.875rem'
+      }}
+    >
+      <span>Memuat...</span>
+    </div>
   )
 }
 
@@ -28,15 +41,17 @@ function AppShell() {
   return (
     <>
       {tampilkanNavbar && <Navbar />}
-      <Routes>
-        <Route path="/" element={<Beranda />} />
-        <Route path="/masuk" element={<Login />} />
-        <Route path="/layanan" element={<Layanan />} />
-        <Route path="/layanan/:id" element={<Detail />} />
-        <Route path="/ajukan/:id" element={<Ajukan />} />
-        <Route path="/tentang" element={<Tentang />} />
-        <Route path="*" element={<Beranda />} />
-      </Routes>
+      <Suspense fallback={<FallbackPemuat />}>
+        <Routes>
+          <Route path="/" element={<Beranda />} />
+          <Route path="/masuk" element={<Login />} />
+          <Route path="/layanan" element={<Layanan />} />
+          <Route path="/layanan/:id" element={<Detail />} />
+          <Route path="/ajukan/:id" element={<Ajukan />} />
+          <Route path="/tentang" element={<Tentang />} />
+          <Route path="*" element={<Beranda />} />
+        </Routes>
+      </Suspense>
     </>
   )
 }
